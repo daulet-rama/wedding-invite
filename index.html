@@ -212,7 +212,7 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   position:relative;padding:70px 28px 70px;text-align:center;
   background:var(--navy2);color:var(--w);
   border-radius:50% 50% 0 0 / 55px 55px 0 0;
-  margin-top:-30px;
+  margin-top:-30px;overflow:hidden;
 }
 .inv-hon{
   font-family:'Cormorant',serif;font-style:italic;font-weight:500;
@@ -319,15 +319,112 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
 /* ═══════════════════════════════════════════
    FOOTER
 ═══════════════════════════════════════════ */
-footer{padding:56px 28px 44px;text-align:center;background:var(--navy3);
-  border-top:1px solid rgba(201,168,76,.15);color:var(--w)}
+footer{padding:56px 28px 44px;text-align:center;
+  background:linear-gradient(170deg,#fffdf8 0%,#fdf8ee 100%);
+  border-top:1px solid rgba(201,168,76,.25);color:var(--dark)}
 .ft-tag{font-size:clamp(.5rem,1.8vw,.6rem);letter-spacing:.28em;text-transform:uppercase;
-  color:var(--w35);margin-bottom:12px}
+  color:rgba(201,168,76,.65);margin-bottom:12px}
 .ft-fam{font-family:'Cormorant',serif;font-style:italic;font-weight:500;
   font-size:clamp(2rem,7.5vw,2.6rem);color:var(--gold)}
-.ft-div{width:55px;height:1px;background:var(--goldD);margin:22px auto}
+.ft-div{width:55px;height:1px;background:rgba(201,168,76,.4);margin:22px auto}
 .ft-couple{font-family:'Cormorant',serif;font-size:clamp(.88rem,3vw,1.05rem);
-  letter-spacing:.16em;color:var(--w35)}
+  letter-spacing:.16em;color:rgba(26,38,72,.4)}
+
+/* ─── Luxury background ornaments ─────────── */
+/* All decorative elements live in background-image — zero DOM impact */
+
+/* SVG data URIs stored as CSS vars */
+:root{
+  /* diamond tile pattern */
+  --pat:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 26 L54 40 L40 54 L26 40 Z' fill='none' stroke='%23c9a84c' stroke-width='.6' stroke-opacity='.09'/%3E%3Ccircle cx='40' cy='40' r='1.3' fill='%23c9a84c' fill-opacity='.09'/%3E%3Ccircle cx='0' cy='0' r='1.1' fill='%23c9a84c' fill-opacity='.06'/%3E%3Ccircle cx='80' cy='0' r='1.1' fill='%23c9a84c' fill-opacity='.06'/%3E%3Ccircle cx='0' cy='80' r='1.1' fill='%23c9a84c' fill-opacity='.06'/%3E%3Ccircle cx='80' cy='80' r='1.1' fill='%23c9a84c' fill-opacity='.06'/%3E%3C/svg%3E");
+  /* light pattern for hero */
+  --pat-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 26 L54 40 L40 54 L26 40 Z' fill='none' stroke='%23c9a84c' stroke-width='.5' stroke-opacity='.055'/%3E%3Ccircle cx='40' cy='40' r='1' fill='%23c9a84c' fill-opacity='.06'/%3E%3C/svg%3E");
+  /* corner ornament — top-left */
+  --ctl:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='68' fill='none'%3E%3Cpath d='M13 52 L13 13 L52 13' stroke='%23c9a84c' stroke-width='1.3' stroke-opacity='.5'/%3E%3Cpath d='M13 13 L18 8 L23 13 L18 18 Z' stroke='%23c9a84c' stroke-width='1' stroke-opacity='.55'/%3E%3Ccircle cx='18' cy='13' r='2.2' fill='%23c9a84c' fill-opacity='.45'/%3E%3Cpath d='M13 44 C22 40 20 30 13 27' stroke='%23c9a84c' stroke-width='.9' stroke-opacity='.35'/%3E%3Cpath d='M44 13 C40 22 30 20 27 13' stroke='%23c9a84c' stroke-width='.9' stroke-opacity='.35'/%3E%3C/svg%3E");
+  /* corner ornament — top-right */
+  --ctr:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='68' fill='none'%3E%3Cpath d='M55 52 L55 13 L16 13' stroke='%23c9a84c' stroke-width='1.3' stroke-opacity='.5'/%3E%3Cpath d='M55 13 L50 8 L45 13 L50 18 Z' stroke='%23c9a84c' stroke-width='1' stroke-opacity='.55'/%3E%3Ccircle cx='50' cy='13' r='2.2' fill='%23c9a84c' fill-opacity='.45'/%3E%3Cpath d='M55 44 C46 40 48 30 55 27' stroke='%23c9a84c' stroke-width='.9' stroke-opacity='.35'/%3E%3Cpath d='M24 13 C28 22 38 20 41 13' stroke='%23c9a84c' stroke-width='.9' stroke-opacity='.35'/%3E%3C/svg%3E");
+  /* corner ornament — bottom-left */
+  --cbl:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='68' fill='none'%3E%3Cpath d='M13 16 L13 55 L52 55' stroke='%23c9a84c' stroke-width='1.3' stroke-opacity='.5'/%3E%3Cpath d='M13 55 L18 60 L23 55 L18 50 Z' stroke='%23c9a84c' stroke-width='1' stroke-opacity='.55'/%3E%3Ccircle cx='18' cy='55' r='2.2' fill='%23c9a84c' fill-opacity='.45'/%3E%3Cpath d='M13 24 C22 28 20 38 13 41' stroke='%23c9a84c' stroke-width='.9' stroke-opacity='.35'/%3E%3Cpath d='M44 55 C40 46 30 48 27 55' stroke='%23c9a84c' stroke-width='.9' stroke-opacity='.35'/%3E%3C/svg%3E");
+  /* corner ornament — bottom-right */
+  --cbr:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='68' height='68' fill='none'%3E%3Cpath d='M55 16 L55 55 L16 55' stroke='%23c9a84c' stroke-width='1.3' stroke-opacity='.5'/%3E%3Cpath d='M55 55 L50 60 L45 55 L50 50 Z' stroke='%23c9a84c' stroke-width='1' stroke-opacity='.55'/%3E%3Ccircle cx='50' cy='55' r='2.2' fill='%23c9a84c' fill-opacity='.45'/%3E%3Cpath d='M55 24 C46 28 48 38 55 41' stroke='%23c9a84c' stroke-width='.9' stroke-opacity='.35'/%3E%3Cpath d='M24 55 C28 46 38 48 41 55' stroke='%23c9a84c' stroke-width='.9' stroke-opacity='.35'/%3E%3C/svg%3E");
+}
+
+/* ── Hero: light pattern layer added on top of gradient ── */
+#hero{
+  background-image: var(--pat-l), linear-gradient(170deg,#fdfaf5 0%,#f7efe3 100%);
+  background-size: 80px 80px, 100% 100%;
+  background-repeat: repeat, no-repeat;
+}
+
+/* ── Dark sections: corners + diamond pattern + base gradient ── */
+#invite{
+  background-image: var(--ctl), var(--ctr), var(--cbl), var(--cbr), var(--pat);
+  background-color: var(--navy2);
+  background-position: 14px 14px, right 14px top 14px, 14px bottom 14px, right 14px bottom 14px, 0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-size: 68px 68px, 68px 68px, 68px 68px, 68px 68px, 80px 80px;
+}
+#date{
+  background-image: var(--ctl), var(--ctr), var(--cbl), var(--cbr), var(--pat),
+                    linear-gradient(180deg,var(--navy2) 0%,var(--navy) 100%);
+  background-position: 14px 14px, right 14px top 14px, 14px bottom 14px, right 14px bottom 14px, 0 0, 0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat, no-repeat;
+  background-size: 68px 68px, 68px 68px, 68px 68px, 68px 68px, 80px 80px, 100% 100%;
+}
+#cdown{
+  background-image: var(--ctl), var(--ctr), var(--cbl), var(--cbr), var(--pat),
+                    linear-gradient(180deg,var(--navy3) 0%,var(--navy2) 100%);
+  background-position: 14px 14px, right 14px top 14px, 14px bottom 14px, right 14px bottom 14px, 0 0, 0 0;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat, no-repeat;
+  background-size: 68px 68px, 68px 68px, 68px 68px, 68px 68px, 80px 80px, 100% 100%;
+}
+
+/* Hero central medallion (absolute, pointer-events:none) */
+.h-medallion{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:clamp(230px,76vw,320px);
+  pointer-events:none;
+}
+
+/* Invite text frame oval */
+.inv-frame{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  width:min(290px,88%);height:auto;
+  pointer-events:none;
+}
+
+/* Twinkling sparkles */
+.sp{
+  position:absolute;border-radius:50%;background:var(--gold);
+  pointer-events:none;
+  animation:spk var(--dur,3.5s) ease-in-out var(--del,0s) infinite;
+}
+@keyframes spk{
+  0%,100%{opacity:0;transform:scale(.3)}
+  50%{opacity:var(--op,.45);transform:scale(1)}
+}
+
+/* Glimmer on headline gold text */
+@keyframes glimmer{
+  0%,100%{text-shadow:0 0 0 transparent}
+  50%{text-shadow:0 0 22px rgba(201,168,76,.38),0 0 48px rgba(201,168,76,.12)}
+}
+.inv-hon,.ft-fam{animation:glimmer 4.5s ease-in-out infinite}
+
+/* Footer decorative divider */
+.ft-orn{opacity:.45;margin:0 auto 24px;display:block}
+
+/* Calendar corner diamonds */
+.cal-wrap .c-dia{
+  position:absolute;width:8px;height:8px;
+  background:var(--gold);transform:rotate(45deg);opacity:.55;
+}
+.cal-wrap .c-dia.tl{top:-4px;left:-4px}
+.cal-wrap .c-dia.tr{top:-4px;right:-4px}
+.cal-wrap .c-dia.bl{bottom:-4px;left:-4px}
+.cal-wrap .c-dia.br{bottom:-4px;right:-4px}
 
 @media(max-width:375px){
   .bota.bl{width:145px}.bota.tr{width:118px}
@@ -541,6 +638,27 @@ footer{padding:56px 28px 44px;text-align:center;background:var(--navy3);
       <path d="M198 40 Q192 32 196 26" stroke="#b89870" stroke-width=".8" opacity=".28"/>
     </svg>
 
+    <!-- Central medallion (behind text, above pattern) -->
+    <svg class="h-medallion" viewBox="0 0 320 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="160" cy="200" rx="136" ry="170" stroke="#c9a84c" stroke-width=".9" opacity=".14"/>
+      <ellipse cx="160" cy="200" rx="118" ry="150" stroke="#c9a84c" stroke-width=".5" opacity=".09"/>
+      <!-- top diamond -->
+      <path d="M160 30 L165 40 L160 50 L155 40 Z" fill="#c9a84c" opacity=".16"/>
+      <line x1="160" y1="12" x2="160" y2="28" stroke="#c9a84c" stroke-width=".7" opacity=".1"/>
+      <!-- bottom diamond -->
+      <path d="M160 350 L165 360 L160 370 L155 360 Z" fill="#c9a84c" opacity=".16"/>
+      <line x1="160" y1="372" x2="160" y2="388" stroke="#c9a84c" stroke-width=".7" opacity=".1"/>
+      <!-- left diamond -->
+      <path d="M24 200 L34 195 L44 200 L34 205 Z" fill="#c9a84c" opacity=".13"/>
+      <!-- right diamond -->
+      <path d="M276 200 L286 195 L296 200 L286 205 Z" fill="#c9a84c" opacity=".13"/>
+      <!-- tiny accent lines on oval -->
+      <line x1="108" y1="37" x2="115" y2="43" stroke="#c9a84c" stroke-width=".5" opacity=".09"/>
+      <line x1="212" y1="37" x2="205" y2="43" stroke="#c9a84c" stroke-width=".5" opacity=".09"/>
+      <line x1="108" y1="363" x2="115" y2="357" stroke="#c9a84c" stroke-width=".5" opacity=".09"/>
+      <line x1="212" y1="363" x2="205" y2="357" stroke="#c9a84c" stroke-width=".5" opacity=".09"/>
+    </svg>
+
     <!-- Text content (z-index above flowers) -->
     <p class="h-name fd" id="h-groom"><span class="init">Р</span>асул</p>
 
@@ -562,6 +680,22 @@ footer{padding:56px 28px 44px;text-align:center;background:var(--navy3);
 
   <!-- ══ INVITE (dark navy arch) ══ -->
   <section id="invite">
+    <!-- sparkles -->
+    <span class="sp" style="width:3px;height:3px;top:16%;left:20%;--dur:4.2s;--del:0s;--op:.55"></span>
+    <span class="sp" style="width:4px;height:4px;top:68%;right:15%;--dur:3.5s;--del:.9s;--op:.45"></span>
+    <span class="sp" style="width:2px;height:2px;top:42%;left:7%;--dur:5s;--del:1.5s;--op:.35"></span>
+    <span class="sp" style="width:3px;height:3px;top:25%;right:18%;--dur:3.8s;--del:.3s;--op:.4"></span>
+    <span class="sp" style="width:2px;height:2px;top:80%;left:32%;--dur:4.5s;--del:2s;--op:.3"></span>
+    <span class="sp" style="width:3px;height:3px;top:55%;right:8%;--dur:4s;--del:1.2s;--op:.38"></span>
+    <!-- text frame oval -->
+    <svg class="inv-frame" viewBox="0 0 290 185" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="145" cy="92" rx="135" ry="84" stroke="#c9a84c" stroke-width=".7" opacity=".17"/>
+      <ellipse cx="145" cy="92" rx="124" ry="74" stroke="#c9a84c" stroke-width=".4" opacity=".1"/>
+      <path d="M145 8 L148 13 L145 18 L142 13 Z" fill="#c9a84c" opacity=".22"/>
+      <path d="M145 166 L148 171 L145 176 L142 171 Z" fill="#c9a84c" opacity=".22"/>
+      <path d="M10 92 L15 89 L20 92 L15 95 Z" fill="#c9a84c" opacity=".18"/>
+      <path d="M270 92 L275 89 L280 92 L275 95 Z" fill="#c9a84c" opacity=".18"/>
+    </svg>
     <p class="inv-hon fd" id="inv-hon">Құрметті</p>
     <p class="inv-sub fd d1" id="inv-sub">Достар мен туыстар!</p>
     <p class="inv-body fd d2" id="inv-body">
@@ -577,6 +711,8 @@ footer{padding:56px 28px 44px;text-align:center;background:var(--navy3);
     <p class="sec-lbl fd d1" id="lbl-date">ТАМЫЗ · 2026</p>
 
     <div class="cal-wrap fd d2">
+      <span class="c-dia tl"></span><span class="c-dia tr"></span>
+      <span class="c-dia bl"></span><span class="c-dia br"></span>
       <p class="cal-month" id="cal-month">Тамыз | 2026</p>
       <div class="cal-grid">
         <span class="cal-dh" id="dh0">Дс</span>
@@ -641,18 +777,38 @@ footer{padding:56px 28px 44px;text-align:center;background:var(--navy3);
 
   <!-- ══ COUNTDOWN ══ -->
   <section id="cdown">
+    <!-- sparkles -->
+    <span class="sp" style="width:3px;height:3px;top:22%;right:18%;--dur:3.8s;--del:.5s;--op:.45"></span>
+    <span class="sp" style="width:4px;height:4px;top:68%;left:14%;--dur:4.2s;--del:1.1s;--op:.4"></span>
+    <span class="sp" style="width:2px;height:2px;top:48%;right:9%;--dur:5.5s;--del:0s;--op:.3"></span>
+    <span class="sp" style="width:3px;height:3px;top:32%;left:10%;--dur:4s;--del:1.8s;--op:.35"></span>
+    <span class="sp" style="width:2px;height:2px;top:80%;right:26%;--dur:3.5s;--del:.7s;--op:.3"></span>
     <p class="sec-script fd" id="sc-cd">Тойға дейін қалды</p>
     <p class="cd-sub fd d1" id="cd-sub">«Иә» дейміз…</p>
     <div class="cd-grid fd d2">
       <div class="cd-item"><span class="cd-num" id="cd-d">—</span><p class="cd-lbl" id="lbl-d">Күн</p></div>
       <div class="cd-item"><span class="cd-num" id="cd-h">—</span><p class="cd-lbl" id="lbl-h">Сағат</p></div>
-      <div class="cd-item"><span class="cd-num" id="cd-m">—</span><p class="cd-lbl" id="lbl-m">Минут</p></div>
+      <div class="cd-item"><span class="cdф-num" id="cd-m">—</span><p class="cd-lbl" id="lbl-m">Минут</p></div>
       <div class="cd-item"><span class="cd-num" id="cd-s">—</span><p class="cd-lbl" id="lbl-s">Секунд</p></div>
     </div>
   </section>
 
   <!-- ══ FOOTER ══ -->
   <footer>
+    <!-- ornamental divider top of footer -->
+    <svg class="ft-orn" width="180" height="28" viewBox="0 0 180 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <line x1="0" y1="14" x2="62" y2="14" stroke="#c9a84c" stroke-width=".9" stroke-opacity=".45"/>
+      <line x1="118" y1="14" x2="180" y2="14" stroke="#c9a84c" stroke-width=".9" stroke-opacity=".45"/>
+      <!-- center fleuron -->
+      <path d="M78 14 C82 8 88 8 90 14 C92 8 98 8 102 14" fill="none" stroke="#c9a84c" stroke-width="1.1" stroke-opacity=".55"/>
+      <circle cx="90" cy="14" r="3" fill="#c9a84c" opacity=".5"/>
+      <!-- small diamonds on line -->
+      <path d="M62 14 L66 10 L70 14 L66 18 Z" fill="#c9a84c" opacity=".38"/>
+      <path d="M110 14 L114 10 L118 14 L114 18 Z" fill="#c9a84c" opacity=".38"/>
+      <!-- tiny dots -->
+      <circle cx="30" cy="14" r="1.2" fill="#c9a84c" opacity=".28"/>
+      <circle cx="150" cy="14" r="1.2" fill="#c9a84c" opacity=".28"/>
+    </svg>
     <p class="ft-tag" id="ft-tag">Ізгі ниетпен</p>
     <p class="ft-fam" id="ft-fam">Абдуллаевтар әулеті</p>
     <div class="ft-div"></div>
