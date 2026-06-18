@@ -309,12 +309,23 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   background:linear-gradient(180deg,var(--navy3) 0%,var(--navy2) 100%)}
 .cd-sub{font-family:'Cormorant',serif;font-style:italic;
   font-size:clamp(1.1rem,4vw,1.4rem);color:var(--w55);margin-bottom:38px}
-.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:340px;margin:0 auto;align-items:end}
-.cd-item{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
-.cd-num{font-family:'Cormorant',serif;font-size:clamp(2.4rem,9vw,3.2rem);
-  font-weight:300;color:var(--w);line-height:1;display:block;min-width:2ch}
-.cd-lbl{font-size:clamp(.42rem,1.5vw,.52rem);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--gold);margin-top:7px}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:360px;margin:0 auto}
+.cd-item{
+  text-align:center;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(201,168,76,.2);
+  border-top:2px solid rgba(201,168,76,.7);
+  padding:20px 4px 16px;
+}
+.cd-num{
+  font-family:'Montserrat',sans-serif;
+  font-size:2rem;font-weight:700;
+  color:var(--w);line-height:1;display:block;letter-spacing:.02em;
+}
+.cd-lbl{
+  font-size:.48rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--gold);margin-top:10px;display:block;
+}
 
 /* ═══════════════════════════════════════════
    FOOTER
@@ -766,7 +777,7 @@ footer{padding:56px 28px 44px;text-align:center;
         <div class="thin-dark"></div>
         <p class="venue-name">«Айгерим-<span style="font-size:1.35em;vertical-align:-.05em">2</span>»</p>
         <p class="venue-hall" id="v-hall">салтанат сарайы</p>
-        <p class="venue-addr" id="v-addr">Атакент кенті,<br>Алматы облысы</p>
+        <p class="venue-addr" id="v-addr">Атакент кенті</p>
       </div>
     </div>
     <div class="venue-bot"></div>
@@ -824,7 +835,7 @@ const T={
     scDate:'Той күні',lblDate:'ТАМЫЗ · 2026',calMonth:'Тамыз | 2026',
     lblTime:'Бастау уақыты',
     scVenue:'Той өтетін орын',vHall:'салтанат сарайы',
-    vAddr:'Атакент кенті,<br>Алматы облысы',mapBtn:'Картада көру →',
+    vAddr:'Атакент кенті',mapBtn:'Картада көру →',
     scCd:'Тойға дейін қалды',cdSub:'«Иә» дейміз…',
     d:'Күн',h:'Сағат',m:'Минут',s:'Секунд',
     ftTag:'Ізгі ниетпен',ftFam:'Абдуллаевтар әулеті',
@@ -838,7 +849,7 @@ const T={
     scDate:'День свадьбы',lblDate:'АВГУСТ · 2026',calMonth:'Август | 2026',
     lblTime:'Начало торжества',
     scVenue:'Место проведения',vHall:'банкетный зал',
-    vAddr:'Посёлок Атакент,<br>Алматинская область',mapBtn:'Место на карте →',
+    vAddr:'Посёлок Атакент',mapBtn:'Место на карте →',
     scCd:'До свадьбы осталось',cdSub:'Мы скажем «Да»…',
     d:'Дней',h:'Часов',m:'Минут',s:'Секунд',
     ftTag:'С наилучшими пожеланиями',ftFam:'Семья Абдуллаевых',
