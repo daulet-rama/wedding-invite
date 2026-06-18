@@ -6,14 +6,17 @@
 <title>Расул &amp; Ясмина · 29.08.2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400;1,500;1,600&family=Marck+Script&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=The+Nautigal:wght@400;700&family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ─── tokens ──────────────────────────────── */
 :root{
-  --cream:#faf6f0; --cream2:#f5ede0;
-  --navy:#1a3f80;  --navy2:#1e4b9a; --navy3:#0e2960; --navy4:#2558b8;
-  --dark:#1a2648;  /* dark text on light bg */
+  --cream:#fdf6ee; --cream2:#f5e8d8;
+  --navy:#273a68;  --navy2:#374e80; --navy3:#1d2e58; --navy4:#4260a2;
+  --dark:#2c1f28;
   --gold:#c9a84c;  --goldL:#e8cf88; --goldD:rgba(201,168,76,.45);
+  --wine:#6b2537;  --wine2:rgba(107,37,55,.12); --wineL:#9b607a;
+  /* script font — toggled per language in setLang() */
+  --sfont:'Cormorant',serif; --sstyle:italic; --sfsize:clamp(2.8rem,11vw,4.2rem);
   --rose:#8b4a5a;  --rose2:#d49098;
   --w:#fff; --w80:rgba(255,255,255,.82); --w55:rgba(255,255,255,.55); --w35:rgba(255,255,255,.38);
   --env:min(300px,88vw);
@@ -86,8 +89,8 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
 .c-rule::before,.c-rule::after{content:'';flex:1;height:1px;
   background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 .c-rule span{color:var(--gold);font-size:.6rem}
-.c-names{font-family:'Marck Script',cursive;font-size:clamp(1rem,4.5vw,1.3rem);
-  color:#1a2648;line-height:1.2;text-align:center}
+.c-names{font-family:'The Nautigal',cursive;font-size:clamp(1.6rem,7vw,2.2rem);
+  color:var(--wine);line-height:1.2;text-align:center;font-weight:400}
 .c-date{font-family:'Cormorant',serif;font-weight:300;
   font-size:clamp(.7rem,2.8vw,.85rem);letter-spacing:.18em;color:rgba(26,38,72,.5)}
 
@@ -150,7 +153,7 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   align-items:center;justify-content:center;
   gap:0;padding:80px 24px 90px;
   text-align:center;
-  background:linear-gradient(170deg,#fdfaf5 0%,#f7efe3 100%);
+  background:linear-gradient(170deg,#fefaf5 0%,#f8ede0 100%);
 }
 
 /* ── botanical corner SVGs ── */
@@ -160,12 +163,10 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
 
 /* ── groom / bride names ── */
 .h-name{
-  font-family:'Cormorant',serif;font-style:italic;font-weight:500;
-  font-size:clamp(3rem,11.5vw,5rem);
-  color:var(--dark);line-height:1;position:relative;z-index:2;
+  font-family:'Great Vibes',cursive;font-weight:400;
+  font-size:clamp(4rem,15vw,7rem);
+  color:var(--wine);line-height:1.1;position:relative;z-index:2;letter-spacing:.02em;
 }
-/* The "А" initial style: slightly larger first letter */
-.h-name .init{font-size:1.15em;font-style:italic}
 
 /* ── vertical date ── */
 .h-date-v{
@@ -173,19 +174,19 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   gap:2px;margin:20px 0;position:relative;z-index:2;
 }
 .h-dnum{
-  font-family:'Cormorant',serif;font-weight:300;
-  font-size:clamp(5rem,18vw,8rem);
-  color:var(--dark);line-height:.88;letter-spacing:-.02em;
+  font-family:'Cormorant',serif;font-weight:400;
+  font-size:clamp(5.5rem,20vw,9rem);
+  color:var(--wine);line-height:.88;letter-spacing:-.02em;
 }
 .h-heart{
-  color:var(--rose);font-size:clamp(.85rem,3.2vw,1.1rem);
+  color:var(--wineL);font-size:clamp(.85rem,3.2vw,1.1rem);
   line-height:1;margin:1px 0;display:block;
 }
 
 /* ── family subtitle ── */
 .h-fam{
   font-size:clamp(.52rem,2vw,.62rem);letter-spacing:.22em;
-  text-transform:uppercase;color:rgba(26,38,72,.4);
+  text-transform:uppercase;color:rgba(107,37,55,.4);
   margin-top:18px;position:relative;z-index:2;
 }
 
@@ -193,13 +194,13 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
 .h-rule{display:flex;align-items:center;gap:10px;
   width:min(200px,55%);margin:14px auto 0;position:relative;z-index:2}
 .h-rule::before,.h-rule::after{content:'';flex:1;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent)}
-.h-rule span{color:rgba(201,168,76,.6);font-size:.75rem}
+  background:linear-gradient(90deg,transparent,rgba(107,37,55,.35),transparent)}
+.h-rule span{color:rgba(107,37,55,.45);font-size:.75rem}
 
 /* ── scroll arrow ── */
 .h-arrow{
   position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
-  color:rgba(26,38,72,.35);font-size:1.3rem;
+  color:rgba(107,37,55,.3);font-size:1.3rem;
   animation:ab 2.2s ease-in-out infinite;z-index:2;
 }
 @keyframes ab{0%,100%{transform:translateX(-50%) translateY(0)}
@@ -215,17 +216,17 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   margin-top:-30px;overflow:hidden;
 }
 .inv-hon{
-  font-family:'Cormorant',serif;font-style:italic;font-weight:500;
-  font-size:clamp(2.4rem,9vw,3.4rem);color:var(--w);line-height:1;margin-bottom:4px;
+  font-family:var(--sfont);font-style:var(--sstyle);font-weight:400;
+  font-size:calc(var(--sfsize) * 1.15);color:var(--w);line-height:1;margin-bottom:8px;letter-spacing:.02em;
 }
 .inv-sub{
-  font-family:'Montserrat',sans-serif;font-weight:500;
-  font-size:clamp(.78rem,3vw,.95rem);letter-spacing:.14em;text-transform:uppercase;
+  font-family:'Montserrat',sans-serif;font-weight:600;
+  font-size:clamp(.78rem,3vw,.98rem);letter-spacing:.18em;text-transform:uppercase;
   color:var(--w80);margin-bottom:28px;
 }
 .inv-body{
-  font-family:'Cormorant',serif;font-size:clamp(1.05rem,4vw,1.25rem);
-  font-weight:300;color:var(--w80);line-height:1.9;max-width:320px;margin:0 auto;
+  font-family:'Cormorant',serif;font-size:clamp(1.1rem,4vw,1.35rem);
+  font-weight:300;color:var(--w80);line-height:2;max-width:320px;margin:0 auto;
 }
 
 /* ═══════════════════════════════════════════
@@ -237,8 +238,8 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   color:var(--w);
 }
 .sec-script{
-  font-family:'Cormorant',serif;font-style:italic;font-weight:400;
-  font-size:clamp(2rem,8vw,2.8rem);color:var(--w);line-height:1.1;margin-bottom:6px;
+  font-family:var(--sfont);font-style:var(--sstyle);font-weight:400;
+  font-size:var(--sfsize);color:var(--w);line-height:1.1;margin-bottom:6px;letter-spacing:.02em;
 }
 .sec-lbl{font-size:clamp(.52rem,2vw,.62rem);letter-spacing:.26em;text-transform:uppercase;
   color:var(--w55);margin-bottom:36px}
@@ -263,8 +264,12 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   font-size:clamp(1.1rem,4vw,1.3rem);color:var(--w80);
   width:32px;height:32px;display:flex;align-items:center;justify-content:center;
   border-radius:50%}
-.cal-d.wedding{background:var(--gold);color:var(--navy3);font-weight:500;
-  box-shadow:0 0 16px rgba(201,168,76,.45)}
+.cal-d.wedding{
+  background:var(--wine);color:var(--w);font-weight:600;
+  box-shadow:0 0 14px rgba(107,37,55,.55);font-size:clamp(1rem,3.6vw,1.2rem);
+  flex-direction:column;gap:0;line-height:1;height:36px;width:36px;padding-top:2px;
+}
+.cal-d.wedding::after{content:'♥';font-size:.45rem;opacity:.9;line-height:1;margin-top:1px}
 .cal-d.empty{opacity:0;pointer-events:none}
 
 .time-block{margin-top:4px}
@@ -283,19 +288,19 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   border-bottom:1px solid var(--goldD)}
 .venue-wrap{background:var(--navy);padding:50px 16px 0}
 .venue-card{
-  background:#f8fbff;margin:0 auto;max-width:360px;
+  background:#fdf8f2;margin:0 auto;max-width:360px;
   width:calc(100% - 32px);padding:44px 28px 40px;color:var(--dark);
 }
-.venue-card .sec-script{color:#7a3040;margin-bottom:10px}
-.thin-dark{width:50px;height:1px;background:rgba(26,38,72,.18);margin:18px auto}
-.venue-name{font-family:'Cormorant',serif;font-weight:400;font-style:italic;
-  font-size:clamp(1.5rem,6vw,2rem);color:var(--dark);letter-spacing:.06em;margin-bottom:6px;
+.venue-card .sec-script{color:var(--wine);margin-bottom:10px}
+.thin-dark{width:50px;height:1px;background:rgba(107,37,55,.2);margin:18px auto}
+.venue-name{font-family:'Cormorant',serif;font-weight:500;font-style:normal;
+  font-size:clamp(1.5rem,6vw,2rem);color:var(--wine);letter-spacing:.08em;margin-bottom:6px;
   text-transform:uppercase}
 .venue-hall{font-family:'Montserrat',sans-serif;font-size:clamp(.62rem,2.2vw,.72rem);
-  letter-spacing:.2em;text-transform:uppercase;color:rgba(26,38,72,.45);margin-bottom:20px}
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(107,37,55,.45);margin-bottom:20px}
 .venue-addr{font-family:'Cormorant',serif;font-size:clamp(.95rem,3.5vw,1.1rem);
-  color:rgba(26,38,72,.65);line-height:1.9;margin-bottom:28px}
-.map-pill{display:inline-block;background:var(--navy);color:var(--w);
+  color:rgba(44,31,40,.65);line-height:1.9;margin-bottom:28px}
+.map-pill{display:inline-block;background:var(--wine);color:var(--w);
   font-family:'Montserrat',sans-serif;font-size:clamp(.56rem,2vw,.66rem);
   letter-spacing:.22em;text-transform:uppercase;padding:14px 32px;border-radius:50px;
   text-decoration:none;transition:background .3s,box-shadow .3s}
@@ -331,15 +336,15 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
    FOOTER
 ═══════════════════════════════════════════ */
 footer{padding:56px 28px 44px;text-align:center;
-  background:linear-gradient(170deg,#fffdf8 0%,#fdf8ee 100%);
-  border-top:1px solid rgba(201,168,76,.25);color:var(--dark)}
+  background:linear-gradient(170deg,#fefcf8 0%,#fdf6ec 100%);
+  border-top:1px solid rgba(107,37,55,.15);color:var(--dark)}
 .ft-tag{font-size:clamp(.55rem,2vw,.65rem);letter-spacing:.25em;text-transform:uppercase;
-  color:rgba(201,168,76,.85);margin-bottom:12px;font-weight:600}
+  color:rgba(107,37,55,.6);margin-bottom:12px;font-weight:600}
 .ft-fam{font-family:'Cormorant',serif;font-style:italic;font-weight:500;
-  font-size:clamp(2rem,7.5vw,2.6rem);color:var(--gold)}
-.ft-div{width:55px;height:1px;background:rgba(201,168,76,.4);margin:22px auto}
+  font-size:clamp(2.2rem,8.5vw,3.2rem);color:var(--gold)}
+.ft-div{width:55px;height:1px;background:rgba(107,37,55,.3);margin:22px auto}
 .ft-couple{font-family:'Cormorant',serif;font-size:clamp(.92rem,3vw,1.08rem);
-  letter-spacing:.16em;color:rgba(26,38,72,.65);font-weight:400}
+  letter-spacing:.16em;color:rgba(107,37,55,.55);font-weight:400}
 
 /* ─── Luxury background ornaments ─────────── */
 /* All decorative elements live in background-image — zero DOM impact */
@@ -362,7 +367,7 @@ footer{padding:56px 28px 44px;text-align:center;
 
 /* ── Hero: light pattern layer added on top of gradient ── */
 #hero{
-  background-image: var(--pat-l), linear-gradient(170deg,#fdfaf5 0%,#f7efe3 100%);
+  background-image: var(--pat-l), linear-gradient(170deg,#fefaf5 0%,#f8ede0 100%);
   background-size: 80px 80px, 100% 100%;
   background-repeat: repeat, no-repeat;
 }
@@ -671,7 +676,7 @@ footer{padding:56px 28px 44px;text-align:center;
     </svg>
 
     <!-- Text content (z-index above flowers) -->
-    <p class="h-name fd" id="h-groom"><span class="init">Р</span>асул</p>
+    <p class="h-name fd" id="h-groom">Расул</p>
 
     <div class="h-date-v fd d1">
       <span class="h-dnum">29</span>
@@ -681,7 +686,7 @@ footer{padding:56px 28px 44px;text-align:center;
       <span class="h-dnum">26</span>
     </div>
 
-    <p class="h-name fd d2" id="h-bride"><span class="init">Я</span>смина</p>
+    <p class="h-name fd d2" id="h-bride">Ясмина</p>
 
     <div class="h-rule fd d3"><span>✦</span></div>
     <p class="h-fam fd d3" id="h-fam">Абдуллаевтар әулеті</p>
@@ -796,7 +801,7 @@ footer{padding:56px 28px 44px;text-align:center;
     <div class="cd-grid fd d2">
       <div class="cd-item"><span class="cd-num" id="cd-d">—</span><p class="cd-lbl" id="lbl-d">Күн</p></div>
       <div class="cd-item"><span class="cd-num" id="cd-h">—</span><p class="cd-lbl" id="lbl-h">Сағат</p></div>
-      <div class="cd-item"><span class="cdф-num" id="cd-m">—</span><p class="cd-lbl" id="lbl-m">Минут</p></div>
+      <div class="cd-item"><span class="cd-num" id="cd-m">—</span><p class="cd-lbl" id="lbl-m">Минут</p></div>
       <div class="cd-item"><span class="cd-num" id="cd-s">—</span><p class="cd-lbl" id="lbl-s">Секунд</p></div>
     </div>
   </section>
@@ -862,6 +867,17 @@ let lang='kk';
 function setLang(l){
   lang=l; document.documentElement.lang=l;
   const t=T[l];
+  /* Script font: Great Vibes for Russian headings, Cormorant italic for Kazakh */
+  const rs=document.documentElement.style;
+  if(l==='ru'){
+    rs.setProperty('--sfont',"'Great Vibes','Cormorant',serif");
+    rs.setProperty('--sstyle','normal');
+    rs.setProperty('--sfsize','clamp(3.2rem,13vw,5rem)');
+  } else {
+    rs.setProperty('--sfont',"'Cormorant',serif");
+    rs.setProperty('--sstyle','italic');
+    rs.setProperty('--sfsize','clamp(2.8rem,11vw,4.2rem)');
+  }
   document.getElementById('ob-txt').textContent   = t.open;
   document.getElementById('c-hon').textContent    = t.hon;
   document.getElementById('h-fam').textContent    = t.hFam;
