@@ -2,900 +2,796 @@
 <html lang="kk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Айдос & Айжан — Шақыру</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Расул &amp; Ясмина · 29.08.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!--
+  Cormorant: beautiful serif with full cyrillic-ext (covers Қ ұ Ү Ң Ә Ө І)
+  Marck Script: flowing handwriting for standard Cyrillic names
+  Montserrat: body / labels
+-->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400;1,500;1,600&family=Marck+Script&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   FONTS — system fallback if CDN fails
-   ═══════════════════════════════════════════ */
-@font-face{font-family:'Cormorant';font-style:normal;font-weight:300 700;font-display:swap;src:local('Cormorant Garamond'),local('CormorantGaramond-Regular'),local('Georgia'),url("https://fonts.gstatic.com/s/cormorantgaramond/v16/co3YmX5slCNuHLi8bLeY9MK7whWMhyjYrEtGmS6WFSYw.woff2") format('woff2')}
-@font-face{font-family:'Cormorant';font-style:italic;font-weight:300 700;font-display:swap;src:local('Cormorant Garamond Italic'),local('CormorantGaramond-Italic'),local('Georgia'),url("https://fonts.gstatic.com/s/cormorantgaramond/v16/co3WmX5slCNuHLi8bLeY9MK7whWMhyjYrEtGmS63XFzHw9CN.woff2") format('woff2')}
-@font-face{font-family:'Inter';font-style:normal;font-weight:300 600;font-display:swap;src:local('Inter'),local('Inter-Regular'),local('Segoe UI'),local('Arial'),url("https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfMZhrib2Bg-4.woff2") format('woff2')}
-
-/* ═══════════════════════════════════════════
-   VARIABLES
-   ═══════════════════════════════════════════ */
+/* ─── tokens ────────────────────────────────── */
 :root{
---navy:#162238;--navy-light:#1e2f4d;--navy-lighter:#243554;
---gold:#c9a96e;--gold-light:#d4b87d;--gold-bright:#e8cfa0;--gold-dark:#a88a52;
---cream:#faf8f5;--cream-warm:#f5f0e8;
---text-dark:#1a1a2e;--text-medium:#4a4a5a;--text-light:#7a7a8a;--text-muted:#9a9aaa;
---font-serif:'Cormorant','Cormorant Garamond','Georgia','Times New Roman',serif;
---font-sans:'Inter','Segoe UI','Helvetica Neue','Arial',sans-serif;
+  --navy:#1a3f80;--navy2:#1e4b9a;--navy3:#0e2960;--navy4:#2558b8;
+  --gold:#c9a84c;--goldL:#e8cf88;--goldD:rgba(201,168,76,.5);
+  --w:#fff;--w70:rgba(255,255,255,.88);--w50:rgba(255,255,255,.68);--w30:rgba(255,255,255,.48);
+  --env:min(300px,88vw);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:var(--font-sans);color:var(--text-dark);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
+html{scroll-behavior:smooth}
+body{background:#0c2455;font-family:'Montserrat',sans-serif;color:var(--w);overflow-x:hidden}
+
+/* ─── lang bar ──────────────────────────────── */
+#lang-bar{
+  position:fixed;top:12px;right:12px;z-index:9999;
+  display:flex;align-items:center;gap:5px;
+  background:rgba(14,41,96,.85);border:1px solid var(--goldD);
+  padding:5px 12px;backdrop-filter:blur(6px);
+}
+.lb{background:none;border:none;cursor:pointer;
+  font-family:'Montserrat',sans-serif;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--w30);transition:color .25s}
+.lb.on{color:var(--gold)}
+.ls{color:var(--goldD);font-size:.7rem}
+
+/* ─── nav dots ──────────────────────────────── */
+#nav{position:fixed;right:12px;top:50%;transform:translateY(-50%);
+  display:none;flex-direction:column;gap:11px;z-index:200}
+#nav.on{display:flex}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--goldD);
+  cursor:pointer;border:none;outline:none;transition:background .3s,transform .3s}
+.dot.on{background:var(--gold);transform:scale(1.5)}
 
 /* ═══════════════════════════════════════════
-   GOLD PARTICLES CANVAS
-   ═══════════════════════════════════════════ */
-#goldCanvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+   ENVELOPE OVERLAY
+═══════════════════════════════════════════ */
+#ov{
+  position:fixed;inset:0;z-index:8000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  background:radial-gradient(ellipse 80% 45% at 50% 30%,rgba(201,168,76,.09) 0%,transparent 65%),
+             linear-gradient(180deg,#0e2960 0%,#1a3f80 55%,#0e2960 100%);
+  transition:opacity .7s ease;
+}
+#ov.hide{opacity:0;pointer-events:none}
 
-/* ═══════════════════════════════════════════
-   MAIN CONTAINER
-   ═══════════════════════════════════════════ */
-.main{max-width:480px;margin:0 auto;min-height:100vh;background:var(--navy);position:relative;overflow:hidden;opacity:0;animation:mainReveal .8s ease 4.5s forwards}
-@keyframes mainReveal{0%{opacity:0;transform:scale(.98)}100%{opacity:1;transform:scale(1)}}
+/* scene container – taller than envelope to give card room to rise */
+.env-scene{position:relative;width:var(--env);height:calc(var(--env) * 1.3)}
 
-/* ═══════════════════════════════════════════
-   LANGUAGE SWITCHER
-   ═══════════════════════════════════════════ */
-.lang{position:fixed;top:16px;right:16px;z-index:1000;display:flex;gap:2px;background:rgba(22,34,56,0.7);border:1px solid rgba(201,169,110,0.2);border-radius:24px;padding:3px}
-.lang-btn{padding:7px 16px;border:none;border-radius:20px;background:transparent;color:var(--text-muted);font-family:var(--font-sans);font-size:12px;font-weight:500;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent}
-.lang-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#fff;box-shadow:0 4px 16px rgba(201,169,110,0.25)}
-
-/* ═══════════════════════════════════════════
-   GOLD CORNER ORNAMENTS (decorative)
-   ═══════════════════════════════════════════ */
-.corner-orn{position:absolute;width:100px;height:100px;z-index:1;pointer-events:none;opacity:.35}
-.corner-orn svg{width:100%;height:100%}
-.corner-tl{top:8px;left:8px}
-.corner-tr{top:8px;right:8px;transform:scaleX(-1)}
-.corner-bl{bottom:8px;left:8px;transform:scaleY(-1)}
-.corner-br{bottom:8px;right:8px;transform:scale(-1)}
-
-/* ═══════════════════════════════════════════
-   GOLD DIVIDERS
-   ═══════════════════════════════════════════ */
-.gold-divider{display:flex;align-items:center;justify-content:center;gap:16px;padding:24px 0}
-.gold-divider .line{flex:1;max-width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.gold-divider .diamond{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);opacity:.6}
-.gold-divider .diamond-sm{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);opacity:.4}
-
-/* ═══════════════════════════════════════════
-   SIDE RIBBONS
-   ═══════════════════════════════════════════ */
-.side-ribbon{position:fixed;top:0;bottom:0;width:6px;z-index:2;pointer-events:none}
-.side-ribbon-l{left:0;background:linear-gradient(180deg,transparent,rgba(201,169,110,0.12) 20%,rgba(201,169,110,0.12) 80%,transparent)}
-.side-ribbon-r{right:0;background:linear-gradient(180deg,transparent,rgba(201,169,110,0.12) 20%,rgba(201,169,110,0.12) 80%,transparent)}
-
-/* ═══════════════════════════════════════════
-   HERO
-   ═══════════════════════════════════════════ */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 28px 60px;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-light) 50%,var(--navy) 100%);overflow:hidden}
-.hero-bg-pattern{position:absolute;inset:0;opacity:.03;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-
-/* Wax seal */
-.seal{width:90px;height:90px;margin:0 auto 24px;position:relative}
-.seal-outer{width:90px;height:90px;border-radius:50%;background:linear-gradient(145deg,var(--gold),var(--gold-dark));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(201,169,110,0.35),inset 0 2px 4px rgba(255,255,255,0.2),inset 0 -2px 4px rgba(0,0,0,0.2)}
-.seal-inner{width:74px;height:74px;border-radius:50%;background:linear-gradient(145deg,var(--gold-light),var(--gold));display:flex;align-items:center;justify-content:center;border:2px solid var(--gold-dark)}
-.seal-icon{font-size:30px;line-height:1}
-.seal-glow{position:absolute;inset:-12px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,0.12),transparent 70%);animation:pulseGlow 3s ease-in-out infinite}
-@keyframes pulseGlow{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
-
-.hero-pretitle{font-family:var(--font-sans);font-size:10px;font-weight:500;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;opacity:0.9}
-.hero-names{font-family:var(--font-serif);font-size:54px;font-weight:600;line-height:1.1;color:var(--cream);margin-bottom:8px;letter-spacing:-1px}
-.hero-names .amp{font-style:italic;font-weight:300;color:var(--gold);font-size:44px;margin:0 4px}
-.hero-subtitle{font-family:var(--font-serif);font-size:17px;font-style:italic;font-weight:400;color:var(--gold-light);margin-bottom:28px}
-.hero-divider{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 24px}
-.hero-date{font-family:var(--font-serif);font-size:20px;font-weight:600;color:var(--cream);margin-bottom:6px;letter-spacing:1px}
-.hero-venue{font-family:var(--font-sans);font-size:11px;font-weight:400;color:var(--gold);letter-spacing:2px;text-transform:uppercase;opacity:0.7}
-.hero-scroll{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:36px;opacity:0.5;animation:float 3s ease-in-out infinite}
-.hero-scroll span{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold)}
-.hero-scroll svg{width:18px;height:18px;color:var(--gold)}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-
-/* ═══════════════════════════════════════════
-   SECTIONS
-   ═══════════════════════════════════════════ */
-.section{padding:40px 24px;position:relative}
-.section-header{text-align:center;margin-bottom:32px}
-.section-label{font-family:var(--font-sans);font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;opacity:0.7}
-.section-title{font-family:var(--font-serif);font-size:32px;font-weight:600;color:var(--cream);line-height:1.15}
-
-/* ═══════════════════════════════════════════
-   CARDS with gold border
-   ═══════════════════════════════════════════ */
-.card{background:linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));border:1px solid rgba(201,169,110,0.15);border-radius:20px;padding:28px 24px;margin:0 0 16px;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.3),transparent)}
-.card::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.1),transparent)}
-
-/* ═══════════════════════════════════════════
-   COUNTDOWN
-   ═══════════════════════════════════════════ */
-.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.cd-item{text-align:center;padding:18px 6px;background:rgba(201,169,110,0.05);border:1px solid rgba(201,169,110,0.12);border-radius:16px;position:relative}
-.cd-num{font-family:var(--font-serif);font-size:30px;font-weight:600;color:var(--gold);display:block;line-height:1;margin-bottom:6px}
-.cd-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold-dark);opacity:.6}
-
-/* ═══════════════════════════════════════════
-   DATE
-   ═══════════════════════════════════════════ */
-.date{text-align:center}
-.date-num{font-family:var(--font-serif);font-size:68px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
-.date-month{font-family:var(--font-serif);font-size:18px;font-weight:500;font-style:italic;color:var(--cream);margin-bottom:4px}
-.date-wd{font-size:13px;color:var(--gold);opacity:.6;margin-bottom:8px}
-.btn-gold{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy);border:none;border-radius:50px;font-family:var(--font-sans);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;box-shadow:0 8px 24px rgba(201,169,110,0.25);transition:all .3s;-webkit-tap-highlight-color:transparent;letter-spacing:.5px}
-.btn-gold:active{transform:scale(0.97)}
-
-/* ═══════════════════════════════════════════
-   TIMELINE
-   ═══════════════════════════════════════════ */
-.tl{position:relative;padding-left:28px}
-.tl::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,var(--gold-dark),var(--gold),var(--gold-dark));opacity:.35}
-.tl-item{position:relative;margin-bottom:24px}
-.tl-dot{position:absolute;left:-25px;top:5px;width:12px;height:12px;background:var(--navy);border:2px solid var(--gold);border-radius:50%;box-shadow:0 0 0 3px rgba(201,169,110,0.12)}
-.tl-time{font-family:var(--font-serif);font-size:16px;font-weight:600;color:var(--gold);margin-bottom:3px}
-.tl-event{font-size:14px;color:rgba(250,248,245,0.72);line-height:1.5}
-
-/* ═══════════════════════════════════════════
-   LOCATION
-   ═══════════════════════════════════════════ */
-.loc{text-align:center}
-.loc-icon{width:50px;height:50px;margin:0 auto 14px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(201,169,110,0.2)}
-.loc-name{font-family:var(--font-serif);font-size:20px;font-weight:600;color:var(--cream);margin-bottom:4px}
-.loc-addr{font-size:14px;color:rgba(250,248,245,0.68);margin-bottom:20px;line-height:1.5}
-.map-wrap{border-radius:16px;overflow:hidden;margin-bottom:14px;border:1px solid rgba(201,169,110,0.12);background:rgba(0,0,0,0.15);height:180px;display:flex;align-items:center;justify-content:center}
-.map-ph{text-align:center;color:var(--text-muted);font-size:12px}
-.map-ph svg{width:36px;height:36px;margin-bottom:6px;opacity:.3}
-.map-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.map-btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.1);border-radius:12px;color:rgba(250,248,245,0.8);font-family:var(--font-sans);font-size:12px;font-weight:500;text-decoration:none;-webkit-tap-highlight-color:transparent}
-.qr-wrap{display:flex;align-items:center;gap:14px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(201,169,110,0.1)}
-.qr-text{font-size:11px;color:rgba(250,248,245,0.5);line-height:1.5}
-
-/* ═══════════════════════════════════════════
-   POEM
-   ═══════════════════════════════════════════ */
-.poem{text-align:center;max-width:300px;margin:0 auto}
-.poem-text{font-family:var(--font-serif);font-size:16px;font-style:italic;font-weight:500;line-height:2;color:var(--cream);opacity:.88;margin-bottom:14px}
-.poem-div{width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:14px auto}
-.poem-trans{font-size:12px;color:rgba(250,248,245,0.5);font-style:normal;font-family:var(--font-sans);line-height:1.7}
-
-/* ═══════════════════════════════════════════
-   DRESS CODE
-   ═══════════════════════════════════════════ */
-.dc-desc{text-align:center;font-size:13px;color:rgba(250,248,245,0.68);margin-bottom:20px}
-.dc-colors{display:flex;justify-content:center;gap:20px;margin-bottom:14px}
-.dc-item{text-align:center}
-.dc-swatch{width:40px;height:40px;border-radius:50%;margin:0 auto 8px;border:2px solid rgba(201,169,110,0.25);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
-.dc-name{font-size:9px;color:var(--gold);opacity:.6;text-transform:uppercase;letter-spacing:1px}
-
-/* ═══════════════════════════════════════════
-   RSVP
-   ═══════════════════════════════════════════ */
-.rsvp-text{text-align:center;font-size:14px;color:rgba(250,248,245,0.72);margin-bottom:20px;line-height:1.6}
-.rsvp-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.rsvp-yes{padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy);border:none;border-radius:14px;font-family:var(--font-sans);font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(201,169,110,0.2);transition:all .3s;-webkit-tap-highlight-color:transparent}
-.rsvp-no{padding:14px;background:rgba(255,255,255,0.03);color:rgba(250,248,245,0.68);border:1px solid rgba(201,169,110,0.15);border-radius:14px;font-family:var(--font-sans);font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent}
-.rsvp-yes:active,.rsvp-no:active{transform:scale(0.96)}
-.rsvp-dl{text-align:center;font-size:12px;color:var(--gold);opacity:.45;margin-top:12px}
-
-/* ═══════════════════════════════════════════
-   GIFTS
-   ═══════════════════════════════════════════ */
-.gift-icon{text-align:center;font-size:36px;margin-bottom:14px}
-.gift-text{text-align:center;font-size:14px;color:rgba(250,248,245,0.72);line-height:1.75;margin-bottom:20px}
-.kaspi{background:rgba(201,169,110,0.04);border:1.5px dashed rgba(201,169,110,0.18);border-radius:16px;padding:22px;text-align:center}
-.kaspi-label{font-size:10px;font-weight:500;color:var(--gold);opacity:.55;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px}
-.kaspi-num{font-family:'Courier New',monospace;font-size:17px;font-weight:700;letter-spacing:2px;color:var(--gold);margin-bottom:12px}
-.btn-copy{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:rgba(255,255,255,0.03);border:1px solid rgba(201,169,110,0.15);border-radius:10px;color:rgba(250,248,245,0.8);font-family:var(--font-sans);font-size:13px;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.copy-toast{font-size:12px;color:var(--gold);margin-top:8px;opacity:0;transition:opacity .3s}
-.copy-toast.show{opacity:1}
-
-/* ═══════════════════════════════════════════
-   GALLERY
-   ═══════════════════════════════════════════ */
-.gal-hint{text-align:center;font-size:13px;color:rgba(250,248,245,0.5);margin-bottom:22px}
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.polaroid{background:var(--cream);padding:7px 7px 26px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.2);transform:rotate(-1.5deg);position:relative}
-.polaroid:nth-child(even){transform:rotate(1.5deg);margin-top:14px}
-.polaroid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block;background:linear-gradient(135deg,var(--navy-light),var(--navy))}
-.polaroid-cap{text-align:center;font-family:var(--font-serif);font-size:14px;font-style:italic;color:var(--text-medium);margin-top:8px}
-
-/* ═══════════════════════════════════════════
-   HASHTAG & SOCIALS
-   ═══════════════════════════════════════════ */
-.hashtag{text-align:center;padding:44px 24px}
-.hashtag-label{font-size:10px;font-weight:500;color:var(--gold);opacity:.45;text-transform:uppercase;letter-spacing:3px;margin-bottom:10px;display:block}
-.hashtag-tag{font-family:var(--font-serif);font-size:24px;font-weight:600;color:var(--gold);cursor:pointer;display:inline-block;padding:10px 24px;border:1.5px dashed rgba(201,169,110,0.22);border-radius:16px;transition:all .3s;-webkit-tap-highlight-color:transparent}
-.hashtag-tag:active{border-color:var(--gold);background:rgba(201,169,110,0.05)}
-.hashtag-hint{font-size:12px;color:rgba(250,248,245,0.4);margin-top:10px}
-.socials{display:flex;justify-content:center;gap:18px;margin-top:30px}
-.soc-link{width:48px;height:48px;border-radius:50%;background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.12);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all .3s;-webkit-tap-highlight-color:transparent}
-.soc-link:active{transform:scale(0.92);background:rgba(201,169,110,0.1)}
-.soc-link svg{width:20px;height:20px}
-
-/* ═══════════════════════════════════════════
-   MUSIC PLAYER
-   ═══════════════════════════════════════════ */
-.music{position:fixed;bottom:24px;right:24px;z-index:1000}
-.music-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;color:var(--navy);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(201,169,110,0.3);transition:all .3s;-webkit-tap-highlight-color:transparent}
-.music-btn.playing{animation:spin 5s linear infinite}
-.music-btn:active{transform:scale(0.92)}
-.music-btn svg{width:20px;height:20px}
-@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-
-/* ═══════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════ */
-.footer{text-align:center;padding:36px 24px 48px;border-top:1px solid rgba(201,169,110,0.06)}
-.footer-text{font-family:var(--font-serif);font-size:14px;color:rgba(250,248,245,0.45);font-style:italic;line-height:2}
-.footer-names{font-weight:600;color:var(--gold);font-style:normal;font-size:16px}
-
-/* ═══════════════════════════════════════════
-   MODAL
-   ═══════════════════════════════════════════ */
-.modal{position:fixed;inset:0;background:rgba(11,17,28,0.7);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .3s}
-.modal.active{display:flex;opacity:1}
-.modal-box{background:linear-gradient(145deg,var(--navy-light),var(--navy));border:1px solid rgba(201,169,110,0.15);border-radius:24px;padding:32px 24px;width:100%;max-width:340px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.3);transform:translateY(20px);transition:transform .3s}
-.modal.active .modal-box{transform:translateY(0)}
-.modal-title{font-family:var(--font-serif);font-size:22px;font-weight:600;color:var(--cream);margin-bottom:8px}
-.modal-desc{font-size:13px;color:rgba(250,248,245,0.55);margin-bottom:22px;line-height:1.5}
-.modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn-wa{display:flex;align-items:center;justify-content:center;gap:6px;padding:14px;background:#25d366;color:#fff;border:none;border-radius:12px;font-family:var(--font-sans);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none}
-.btn-tg{display:flex;align-items:center;justify-content:center;gap:6px;padding:14px;background:#0088cc;color:#fff;border:none;border-radius:12px;font-family:var(--font-sans);font-size:13px;font-weight:600;cursor:pointer;text-decoration:none}
-.btn-close{margin-top:12px;padding:10px;background:transparent;border:none;color:var(--text-muted);font-family:var(--font-sans);font-size:13px;cursor:pointer;width:100%}
-
-/* ═══════════════════════════════════════════
-   SCROLL REVEAL
-   ═══════════════════════════════════════════ */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-/* Scrollbar */
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--navy)}
-::-webkit-scrollbar-thumb{background:rgba(201,169,110,0.2);border-radius:2px}
-
-@media(max-width:360px){
-.hero-names{font-size:46px}
-.hero-names .amp{font-size:38px}
-.cd-num{font-size:26px}
-.date-num{font-size:56px}
+/* ── envelope body (bottom-anchored) ── */
+.env-body{
+  position:absolute;bottom:0;left:0;width:100%;
+  height:calc(var(--env) * .64);
+  background:var(--navy4);
+  border:1.5px solid var(--goldD);
+  z-index:1;
+}
+/* subtle gold accent line across body */
+.env-body::after{
+  content:'';position:absolute;
+  top:48%;left:14px;right:14px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--goldD),transparent);
 }
 
+/* ── card (hidden inside – starts below envelope mid-line) ── */
+.env-card{
+  position:absolute;
+  bottom:calc(var(--env)*.06);
+  left:50%;transform:translateX(-50%);
+  width:calc(var(--env)*.82);height:calc(var(--env)*.58);
+  background:linear-gradient(150deg,#dce8ff 0%,#eaf0ff 100%);
+  z-index:2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  padding:16px 12px;
+  box-shadow:0 4px 24px rgba(0,0,0,.4);
+  transition:bottom .9s cubic-bezier(.22,1,.36,1),box-shadow .9s ease;
+}
+.env-card.rise{
+  bottom:calc(var(--env)*.72);
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+
+/* card corner accents */
+.cc{position:absolute;width:20px;height:20px;border-color:var(--gold);border-style:solid;opacity:.65}
+.cc.tl{top:7px;left:7px;border-width:1.5px 0 0 1.5px}
+.cc.tr{top:7px;right:7px;border-width:1.5px 1.5px 0 0}
+.cc.bl{bottom:7px;left:7px;border-width:0 0 1.5px 1.5px}
+.cc.br{bottom:7px;right:7px;border-width:0 1.5px 1.5px 0}
+
+.c-hon{font-family:'Cormorant',serif;font-style:italic;font-weight:500;
+  font-size:clamp(1.3rem,5.5vw,1.6rem);color:var(--gold);line-height:1}
+.c-rule{display:flex;align-items:center;gap:6px;width:65%}
+.c-rule::before,.c-rule::after{content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.c-rule span{color:var(--gold);font-size:.6rem}
+.c-names{font-family:'Marck Script',cursive;
+  font-size:clamp(1rem,4.5vw,1.3rem);color:var(--navy);line-height:1.2;text-align:center}
+.c-date{font-family:'Cormorant',serif;font-weight:300;
+  font-size:clamp(.7rem,2.8vw,.85rem);letter-spacing:.18em;color:rgba(11,23,48,.5)}
+
+/* ── side flaps (left / right triangles) ── */
+.ef-l,.ef-r{position:absolute;bottom:0;width:50%;height:calc(var(--env)*.64);z-index:3}
+.ef-l{left:0;background:#162e6a;clip-path:polygon(0 0,0 100%,100% 50%)}
+.ef-r{right:0;background:#162e6a;clip-path:polygon(100% 0,100% 100%,0 50%)}
+
+/* ── bottom V fold ── */
+.ef-bot{
+  position:absolute;bottom:0;left:0;
+  width:100%;height:calc(var(--env)*.64);
+  z-index:4;
+  background:#122660;
+  clip-path:polygon(0 100%,100% 100%,50% 0);
+}
+/* border line on bottom fold */
+.ef-bot::before{
+  content:'';position:absolute;inset:0;
+  clip-path:polygon(0 100%,100% 100%,50% 0);
+  outline:1.5px solid var(--goldD);
+}
+
+/* ── front face (COVERS CARD COMPLETELY while closed) ── */
+.ef-front{
+  position:absolute;bottom:0;left:0;width:100%;
+  height:calc(var(--env)*.64);
+  background:var(--navy4);
+  border:1.5px solid var(--goldD);
+  z-index:5;
+  /* diamond V cutout using clip-path – reveals the interior design */
+  clip-path:polygon(
+    0 0, 100% 0,          /* top edge */
+    100% 100%,            /* bottom-right */
+    50% 0%,               /* This won't work as a cutout */
+    0 100%                /* bottom-left */
+  );
+}
+
+/*
+  Actually use a simpler approach:
+  front face is solid and covers everything.
+  side flap lines are just visual decoration via box-shadow/border.
+  The front face has the gold seal.
+*/
+.ef-face{
+  position:absolute;bottom:0;left:0;width:100%;
+  height:calc(var(--env)*.64);
+  background:#1a3870;
+  border:1.5px solid var(--goldD);
+  z-index:5;
+}
+/* V-lines decorating the face (not real flaps, just visual) */
+.ef-face::before{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(to bottom right,var(--goldD) 0,transparent 1px),
+    linear-gradient(to bottom left,var(--goldD) 0,transparent 1px);
+  opacity:.25;
+}
+/* Gold seal */
+.seal{
+  position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+  width:36px;height:36px;border-radius:50%;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Montserrat',sans-serif;font-size:.48rem;font-weight:600;
+  letter-spacing:.05em;color:var(--navy3);
+  box-shadow:0 2px 12px rgba(201,168,76,.4);
+}
+
+/* ── top flap (OPENS) ── */
+.ef-top{
+  position:absolute;
+  left:0;width:100%;
+  height:calc(var(--env)*.42);
+  bottom:calc(var(--env)*.64 - 1px);
+  transform-origin:bottom center;
+  transform-style:preserve-3d;
+  z-index:10;
+  transition:transform .95s cubic-bezier(.4,0,.2,1);
+}
+.ef-top.open{transform:perspective(700px) rotateX(175deg)}
+.ef-top-face{
+  position:absolute;inset:0;
+  background:#162e6a;
+  clip-path:polygon(0 100%,100% 100%,50% 0);
+  border-top:1.5px solid var(--goldD);
+}
+.ef-top-face::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(0deg,rgba(201,168,76,.06) 0%,transparent 60%);
+  clip-path:polygon(0 100%,100% 100%,50% 0);
+}
+
+/* ── open button ── */
+#ob{
+  background:none;border:1px solid var(--gold);color:var(--gold);
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(.58rem,2.5vw,.7rem);letter-spacing:.22em;text-transform:uppercase;
+  padding:13px 38px;cursor:pointer;
+  transition:background .3s,color .3s,opacity .4s;
+  animation:pb 2.5s ease-in-out infinite;
+}
+#ob:hover{background:var(--gold);color:var(--navy3)}
+@keyframes pb{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}
+              50%{box-shadow:0 0 0 7px rgba(201,168,76,.15)}}
+.ov-orn{display:flex;align-items:center;gap:12px;width:min(200px,60vw)}
+.ov-orn::before,.ov-orn::after{content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,var(--goldD),transparent)}
+.ov-orn span{color:var(--goldD);font-size:.8rem}
+.ov-hint{font-family:'Cormorant',serif;font-size:clamp(.75rem,3vw,.9rem);
+  letter-spacing:.22em;color:var(--w30)}
+
 /* ═══════════════════════════════════════════
-   ENVELOPE SPLASH ANIMATION
-   ═══════════════════════════════════════════ */
-.envelope-splash{position:fixed;inset:0;z-index:9999;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s ease,visibility .8s ease}
-.envelope-splash.done{opacity:0;visibility:hidden;pointer-events:none}
-.envelope-scene{position:relative;width:260px;height:180px;perspective:800px}
-.envelope-hint{position:absolute;bottom:15%;font-family:var(--font-sans);font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:0;animation:hintFade 2s ease 1s forwards}
-@keyframes hintFade{0%{opacity:0;transform:translateY(10px)}100%{opacity:.5;transform:translateY(0)}}
+   MAIN  (hidden until envelope opens)
+═══════════════════════════════════════════ */
+#main{transition:opacity .6s ease}
 
-/* Envelope */
-.env-body{position:absolute;inset:0;z-index:2;animation:envEnter .8s ease forwards}
-@keyframes envEnter{0%{transform:scale(.7);opacity:0}100%{transform:scale(1);opacity:1}}
-.env-front{position:absolute;inset:0;background:linear-gradient(145deg,#1e2f4d,#162238);border-radius:0 0 12px 12px;box-shadow:0 8px 32px rgba(0,0,0,0.3),inset 0 1px 0 rgba(201,169,110,0.1)}
-.env-front::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.25}
-.env-pocket{position:absolute;bottom:0;left:0;width:130px;height:90px;background:linear-gradient(135deg,#1a2a42,#243554);clip-path:polygon(0 0,0 100%,100% 100%);border-radius:0 0 0 12px}
-.env-pocket-top{position:absolute;bottom:0;right:0;width:130px;height:90px;background:linear-gradient(225deg,#1a2a42,#243554);clip-path:polygon(100% 0,0 100%,100% 100%);border-radius:0 0 12px 0}
-.env-flap{position:absolute;top:0;left:0;right:0;height:110px;transform-origin:top center;z-index:5;animation:flapOpen 1s ease 1.8s forwards}
-.env-flap-inner{position:absolute;inset:0;background:linear-gradient(180deg,#2a3d5c,#1e2f4d);clip-path:polygon(0 0,50% 100%,100% 0);box-shadow:inset 0 1px 2px rgba(201,169,110,0.15)}
-.env-flap-inner::after{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:26px;height:26px;border-radius:50%;background:linear-gradient(145deg,var(--gold),var(--gold-dark));box-shadow:0 2px 8px rgba(201,169,110,0.3),inset 0 1px 2px rgba(255,255,255,.2)}
-@keyframes flapOpen{0%{transform:rotateX(0)}100%{transform:rotateX(180deg)}}
+/* ── scroll fade ── */
+.fd{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
+.fd.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.34s}.d4{transition-delay:.46s}
 
-/* Card inside envelope */
-.env-card{position:absolute;left:10px;right:10px;top:15px;height:150px;background:linear-gradient(145deg,var(--cream),var(--cream-warm));border-radius:8px;z-index:3;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.15);animation:cardSlide 1.2s cubic-bezier(.4,0,.2,1) 2.6s forwards}
-.env-card-inner{text-align:center}
-.env-seal{font-size:26px;margin-bottom:6px;opacity:.8}
-.env-names{font-family:var(--font-serif);font-size:18px;font-weight:600;color:var(--navy);letter-spacing:1px}
-.env-amp{font-style:italic;color:var(--gold);font-weight:400}
-.env-line{width:36px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:6px auto}
-.env-date{font-family:var(--font-sans);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted)}
-@keyframes cardSlide{0%{transform:translateY(0);opacity:1}50%{transform:translateY(-60px);opacity:1}100%{transform:translateY(-220px);opacity:0}}
+/* ── gold dividers ── */
+.ruler{display:flex;align-items:center;gap:10px;width:min(280px,76%);margin:0 auto}
+.ruler::before,.ruler::after{content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.ruler span{color:var(--gold);font-size:.85rem;line-height:1}
+.diam-rule{display:flex;align-items:center;gap:14px;width:min(150px,46%);margin:0 auto}
+.diam-rule::before,.diam-rule::after{content:'';flex:1;height:1px;background:var(--goldD)}
+.diam{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
+.thin{width:50px;height:1px;background:var(--goldD);margin:0 auto}
+
+/* ═══ HERO ═══ */
+#hero{
+  position:relative;overflow:hidden;
+  min-height:100svh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:70px 28px 60px;text-align:center;
+  background:radial-gradient(ellipse 90% 55% at 50% 0%,rgba(201,168,76,.1) 0%,transparent 65%),
+             linear-gradient(180deg,#0e2960 0%,#1a3f80 50%,#122e6c 100%);
+}
+/* corner leaf SVGs */
+.leaf{position:absolute;width:140px;height:140px;opacity:.5;color:var(--gold)}
+.leaf.tl{top:4px;left:4px}
+.leaf.tr{top:4px;right:4px;transform:scaleX(-1)}
+.leaf.bl{bottom:4px;left:4px;transform:scaleY(-1)}
+.leaf.br{bottom:4px;right:4px;transform:scale(-1,-1)}
+
+/* Honorific – Cormorant italic (full Kazakh cyrillic support) */
+.hon{
+  font-family:'Cormorant',serif;font-style:italic;font-weight:500;
+  font-size:clamp(2.6rem,10vw,3.6rem);
+  color:var(--gold);letter-spacing:.03em;
+  text-shadow:0 0 40px rgba(201,168,76,.4);
+  margin-bottom:14px;line-height:1;
+}
+.inv-txt{
+  font-size:clamp(.58rem,2.2vw,.68rem);letter-spacing:.15em;text-transform:uppercase;
+  line-height:2.1;color:var(--w50);max-width:290px;margin:0 auto 30px;
+}
+.names{display:flex;flex-direction:column;align-items:center;margin:8px 0 26px}
+.name{font-family:'Marck Script',cursive;font-size:clamp(3.8rem,13vw,5rem);
+  line-height:1.05;color:var(--w);text-shadow:0 4px 24px rgba(201,168,76,.2)}
+.amp{font-family:'Cormorant',serif;font-size:clamp(1.8rem,6vw,2.4rem);
+  color:var(--gold);line-height:1;margin:2px 0}
+.fam-tag{font-size:clamp(.52rem,2vw,.62rem);letter-spacing:.22em;text-transform:uppercase;
+  color:var(--w30);margin-top:4px}
+
+/* ═══ DATE (full calendar) ═══ */
+#date{
+  padding:80px 24px;text-align:center;
+  background:linear-gradient(180deg,#122e6c 0%,#1e4b9a 100%);
+}
+.sec-script{
+  font-family:'Cormorant',serif;font-style:italic;font-weight:400;
+  font-size:clamp(2rem,8vw,2.8rem);color:var(--gold);line-height:1.1;margin-bottom:6px;
+}
+.sec-lbl{
+  font-size:clamp(.52rem,2vw,.62rem);letter-spacing:.26em;text-transform:uppercase;
+  color:var(--w50);margin-bottom:36px;
+}
+
+/* full calendar grid */
+.cal-wrap{
+  display:inline-block;border:1px solid var(--goldD);
+  padding:26px 20px 20px;position:relative;margin-bottom:36px;
+  max-width:340px;width:100%;
+}
+.cal-wrap::before{content:'';position:absolute;top:-1px;left:-1px;
+  width:16px;height:16px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+.cal-wrap::after{content:'';position:absolute;bottom:-1px;right:-1px;
+  width:16px;height:16px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
+
+.cal-month{
+  font-size:clamp(.56rem,2.2vw,.68rem);letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);text-align:center;margin-bottom:18px;
+}
+.cal-grid{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:2px 4px;
+  justify-items:center;align-items:center;
+}
+.cal-dh{
+  font-size:clamp(.5rem,1.8vw,.58rem);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--w30);padding:4px 0 6px;font-weight:500;
+}
+.cal-d{
+  font-family:'Cormorant',serif;font-weight:300;
+  font-size:clamp(1.1rem,4vw,1.3rem);color:var(--w70);
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;transition:color .2s;
+}
+.cal-d.wedding{
+  background:var(--gold);color:var(--navy3);
+  font-weight:400;
+  box-shadow:0 0 16px rgba(201,168,76,.45);
+}
+.cal-d.empty{opacity:0;pointer-events:none}
+
+/* time */
+.time-block{margin-top:4px}
+.time-ring{width:44px;height:44px;border-radius:50%;border:1px solid var(--goldD);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.time-val{font-family:'Cormorant',serif;font-size:clamp(2.2rem,8vw,2.8rem);
+  color:var(--gold);letter-spacing:.08em;line-height:1}
+.time-lbl{font-size:clamp(.48rem,1.8vw,.58rem);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--w30);margin-top:6px}
+
+/* ═══ VENUE ═══ */
+#venue{
+  padding:0;text-align:center;
+  background:#1e4b9a;
+  position:relative;overflow:hidden;
+}
+/* top flower band (decorative gradient) */
+.venue-top{
+  height:14px;
+  background:linear-gradient(90deg,#122e6c,#2558b8,#122e6c);
+  border-bottom:1px solid var(--goldD);
+}
+/* white card panel */
+.venue-card{
+  background:#f8fbff;
+  margin:0 auto;
+  max-width:360px;width:calc(100% - 32px);
+  padding:44px 28px 40px;
+  position:relative;
+  color:var(--navy);
+}
+.venue-card .sec-script{
+  color:#8b3a3a; /* warm dark for light bg */
+  margin-bottom:10px;
+}
+.thin-dark{width:50px;height:1px;background:rgba(11,23,48,.2);margin:18px auto}
+.venue-name{
+  font-family:'Cormorant',serif;font-weight:400;font-style:italic;
+  font-size:clamp(1.5rem,6vw,2rem);color:var(--navy);
+  letter-spacing:.06em;margin-bottom:6px;
+  text-transform:uppercase;
+}
+.venue-hall{
+  font-family:'Montserrat',sans-serif;font-size:clamp(.62rem,2.2vw,.72rem);
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(11,23,48,.5);margin-bottom:20px;
+}
+.venue-addr{
+  font-family:'Cormorant',serif;font-size:clamp(.95rem,3.5vw,1.1rem);
+  color:rgba(11,23,48,.7);line-height:1.9;margin-bottom:28px;
+}
+.map-pill{
+  display:inline-block;
+  background:var(--navy);color:var(--w);
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(.56rem,2vw,.66rem);letter-spacing:.22em;text-transform:uppercase;
+  padding:14px 32px;border-radius:50px;text-decoration:none;
+  transition:background .3s,box-shadow .3s;
+}
+.map-pill:hover{background:var(--navy4);box-shadow:0 4px 18px rgba(0,0,0,.3)}
+.venue-bot{
+  height:80px;
+  background:linear-gradient(180deg,#1e4b9a 0%,#122e6c 100%);
+}
+
+/* ═══ COUNTDOWN ═══ */
+#cdown{
+  padding:80px 24px;text-align:center;
+  background:linear-gradient(180deg,#122e6c 0%,#1e4b9a 100%);
+}
+.cd-sub{font-family:'Cormorant',serif;font-style:italic;
+  font-size:clamp(1.1rem,4vw,1.4rem);color:var(--w50);margin-bottom:38px}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:340px;margin:0 auto}
+.cd-item{text-align:center}
+.cd-num{font-family:'Cormorant',serif;font-size:clamp(2.4rem,9vw,3.2rem);
+  font-weight:300;color:var(--w);line-height:1;display:block;min-width:2ch}
+.cd-lbl{font-size:clamp(.42rem,1.5vw,.52rem);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin-top:7px}
+
+/* ═══ FOOTER ═══ */
+footer{padding:56px 28px 44px;text-align:center;background:#0e2960;
+  border-top:1px solid rgba(201,168,76,.18)}
+.ft-tag{font-size:clamp(.5rem,1.8vw,.6rem);letter-spacing:.28em;text-transform:uppercase;
+  color:var(--w30);margin-bottom:12px}
+.ft-fam{font-family:'Cormorant',serif;font-style:italic;font-weight:500;
+  font-size:clamp(2rem,7.5vw,2.6rem);color:var(--gold)}
+.ft-div{width:55px;height:1px;background:var(--goldD);margin:22px auto}
+.ft-couple{font-family:'Cormorant',serif;font-size:clamp(.88rem,3vw,1.05rem);
+  letter-spacing:.16em;color:var(--w30)}
+
+@media(max-width:375px){
+  .leaf{width:108px;height:108px}
+  .cal-d{width:26px;height:26px;font-size:1rem}
+}
 </style>
 </head>
+<body data-lang="kk">
 
-<body>
-<!-- ═══ ENVELOPE SPLASH ═══ -->
-<div class="envelope-splash" id="envelopeSplash" onclick="skipEnvelope()">
-<div class="envelope-scene">
-<div class="env-card">
-<div class="env-card-inner">
-<div class="env-seal">🌿</div>
-<div class="env-names">Айдос <span class="env-amp">&</span> Айжан</div>
-<div class="env-line"></div>
-<div class="env-date">15.08.2026</div>
-</div>
-</div>
-<div class="env-body">
-<div class="env-pocket"></div>
-<div class="env-pocket-top"></div>
-<div class="env-flap"><div class="env-flap-inner"></div></div>
-<div class="env-front"></div>
-</div>
-</div>
-<div class="envelope-hint" data-kz="Шақыру ашылады..." data-ru="Приглашение открывается...">Шақыру ашылады...</div>
+<!-- ── lang bar ─────────────────────────── -->
+<div id="lang-bar">
+  <button class="lb on" id="bkk">ҚАЗ</button>
+  <span class="ls">|</span>
+  <button class="lb" id="bru">РУС</button>
 </div>
 
-<!-- ═══ GOLD PARTICLES ═══ -->
-<canvas id="goldCanvas"></canvas>
+<!-- ── nav dots ─────────────────────────── -->
+<nav id="nav">
+  <button class="dot on" data-s="hero"></button>
+  <button class="dot" data-s="date"></button>
+  <button class="dot" data-s="venue"></button>
+  <button class="dot" data-s="cdown"></button>
+</nav>
 
-<!-- ═══ SIDE RIBBONS ═══ -->
-<div class="side-ribbon side-ribbon-l"></div>
-<div class="side-ribbon side-ribbon-r"></div>
+<!-- ═══════════════════════════════════════
+     ENVELOPE OVERLAY
+═══════════════════════════════════════ -->
+<div id="ov">
 
-<!-- ═══ LANGUAGE SWITCHER ═══ -->
-<div class="lang">
-<button class="lang-btn active" data-lang="kz" onclick="setLang('kz')">ҚАЗ</button>
-<button class="lang-btn" data-lang="ru" onclick="setLang('ru')">РУС</button>
-</div>
+  <div class="env-scene">
 
-<div class="main">
+    <!-- card (hidden behind face while closed) -->
+    <div class="env-card" id="ecard">
+      <div class="cc tl"></div><div class="cc tr"></div>
+      <div class="cc bl"></div><div class="cc br"></div>
+      <p class="c-hon" id="c-hon">Құрметті</p>
+      <div class="c-rule"><span>✦</span></div>
+      <p class="c-names">Расул &amp; Ясмина</p>
+      <p class="c-date">29 · 08 · 2026</p>
+    </div>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero">
-<div class="hero-bg-pattern"></div>
+    <!-- envelope back -->
+    <div class="env-body"></div>
 
-<!-- Corner ornaments — gold leaf branches -->
-<div class="corner-orn corner-tl"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2 2 Q2 35 2 50 Q2 70 18 85 Q35 98 50 98" stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.4"/>
-<path d="M8 8 Q8 30 10 45 Q12 60 22 72 Q32 82 45 85" stroke="#c9a96e" stroke-width="0.5" fill="none" opacity="0.3"/>
-<ellipse cx="18" cy="18" rx="5" ry="8" fill="#c9a96e" opacity="0.25" transform="rotate(-30 18 18)"/>
-<ellipse cx="14" cy="32" rx="4" ry="7" fill="#c9a96e" opacity="0.2" transform="rotate(-45 14 32)"/>
-<ellipse cx="22" cy="48" rx="5" ry="9" fill="#c9a96e" opacity="0.22" transform="rotate(-20 22 48)"/>
-<ellipse cx="16" cy="62" rx="4" ry="7" fill="#c9a96e" opacity="0.18" transform="rotate(-50 16 62)"/>
-<ellipse cx="28" cy="74" rx="5" ry="8" fill="#c9a96e" opacity="0.2" transform="rotate(-15 28 74)"/>
-<ellipse cx="42" cy="82" rx="4" ry="6" fill="#c9a96e" opacity="0.15" transform="rotate(-40 42 82)"/>
-<circle cx="8" cy="12" r="1.5" fill="#c9a96e" opacity="0.3"/>
-<circle cx="6" cy="28" r="1.2" fill="#c9a96e" opacity="0.25"/>
-<circle cx="12" cy="44" r="1.5" fill="#c9a96e" opacity="0.2"/>
-<circle cx="8" cy="58" r="1.2" fill="#c9a96e" opacity="0.18"/>
-<circle cx="18" cy="70" r="1.5" fill="#c9a96e" opacity="0.2"/>
-<circle cx="32" cy="78" r="1.2" fill="#c9a96e" opacity="0.15"/>
-</svg></div>
-<div class="corner-orn corner-tr"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2 2 Q2 35 2 50 Q2 70 18 85 Q35 98 50 98" stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.4"/>
-<path d="M8 8 Q8 30 10 45 Q12 60 22 72 Q32 82 45 85" stroke="#c9a96e" stroke-width="0.5" fill="none" opacity="0.3"/>
-<ellipse cx="18" cy="18" rx="5" ry="8" fill="#c9a96e" opacity="0.25" transform="rotate(-30 18 18)"/>
-<ellipse cx="14" cy="32" rx="4" ry="7" fill="#c9a96e" opacity="0.2" transform="rotate(-45 14 32)"/>
-<ellipse cx="22" cy="48" rx="5" ry="9" fill="#c9a96e" opacity="0.22" transform="rotate(-20 22 48)"/>
-<ellipse cx="16" cy="62" rx="4" ry="7" fill="#c9a96e" opacity="0.18" transform="rotate(-50 16 62)"/>
-<ellipse cx="28" cy="74" rx="5" ry="8" fill="#c9a96e" opacity="0.2" transform="rotate(-15 28 74)"/>
-<ellipse cx="42" cy="82" rx="4" ry="6" fill="#c9a96e" opacity="0.15" transform="rotate(-40 42 82)"/>
-<circle cx="8" cy="12" r="1.5" fill="#c9a96e" opacity="0.3"/>
-<circle cx="6" cy="28" r="1.2" fill="#c9a96e" opacity="0.25"/>
-<circle cx="12" cy="44" r="1.5" fill="#c9a96e" opacity="0.2"/>
-<circle cx="8" cy="58" r="1.2" fill="#c9a96e" opacity="0.18"/>
-<circle cx="18" cy="70" r="1.5" fill="#c9a96e" opacity="0.2"/>
-<circle cx="32" cy="78" r="1.2" fill="#c9a96e" opacity="0.15"/>
-</svg></div>
-<div class="corner-orn corner-bl"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2 2 Q2 35 2 50 Q2 70 18 85 Q35 98 50 98" stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.4"/>
-<path d="M8 8 Q8 30 10 45 Q12 60 22 72 Q32 82 45 85" stroke="#c9a96e" stroke-width="0.5" fill="none" opacity="0.3"/>
-<ellipse cx="18" cy="18" rx="5" ry="8" fill="#c9a96e" opacity="0.25" transform="rotate(-30 18 18)"/>
-<ellipse cx="14" cy="32" rx="4" ry="7" fill="#c9a96e" opacity="0.2" transform="rotate(-45 14 32)"/>
-<ellipse cx="22" cy="48" rx="5" ry="9" fill="#c9a96e" opacity="0.22" transform="rotate(-20 22 48)"/>
-<ellipse cx="16" cy="62" rx="4" ry="7" fill="#c9a96e" opacity="0.18" transform="rotate(-50 16 62)"/>
-<ellipse cx="28" cy="74" rx="5" ry="8" fill="#c9a96e" opacity="0.2" transform="rotate(-15 28 74)"/>
-<ellipse cx="42" cy="82" rx="4" ry="6" fill="#c9a96e" opacity="0.15" transform="rotate(-40 42 82)"/>
-<circle cx="8" cy="12" r="1.5" fill="#c9a96e" opacity="0.3"/>
-<circle cx="6" cy="28" r="1.2" fill="#c9a96e" opacity="0.25"/>
-<circle cx="12" cy="44" r="1.5" fill="#c9a96e" opacity="0.2"/>
-<circle cx="8" cy="58" r="1.2" fill="#c9a96e" opacity="0.18"/>
-<circle cx="18" cy="70" r="1.5" fill="#c9a96e" opacity="0.2"/>
-<circle cx="32" cy="78" r="1.2" fill="#c9a96e" opacity="0.15"/>
-</svg></div>
-<div class="corner-orn corner-br"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M2 2 Q2 35 2 50 Q2 70 18 85 Q35 98 50 98" stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.4"/>
-<path d="M8 8 Q8 30 10 45 Q12 60 22 72 Q32 82 45 85" stroke="#c9a96e" stroke-width="0.5" fill="none" opacity="0.3"/>
-<ellipse cx="18" cy="18" rx="5" ry="8" fill="#c9a96e" opacity="0.25" transform="rotate(-30 18 18)"/>
-<ellipse cx="14" cy="32" rx="4" ry="7" fill="#c9a96e" opacity="0.2" transform="rotate(-45 14 32)"/>
-<ellipse cx="22" cy="48" rx="5" ry="9" fill="#c9a96e" opacity="0.22" transform="rotate(-20 22 48)"/>
-<ellipse cx="16" cy="62" rx="4" ry="7" fill="#c9a96e" opacity="0.18" transform="rotate(-50 16 62)"/>
-<ellipse cx="28" cy="74" rx="5" ry="8" fill="#c9a96e" opacity="0.2" transform="rotate(-15 28 74)"/>
-<ellipse cx="42" cy="82" rx="4" ry="6" fill="#c9a96e" opacity="0.15" transform="rotate(-40 42 82)"/>
-<circle cx="8" cy="12" r="1.5" fill="#c9a96e" opacity="0.3"/>
-<circle cx="6" cy="28" r="1.2" fill="#c9a96e" opacity="0.25"/>
-<circle cx="12" cy="44" r="1.5" fill="#c9a96e" opacity="0.2"/>
-<circle cx="8" cy="58" r="1.2" fill="#c9a96e" opacity="0.18"/>
-<circle cx="18" cy="70" r="1.5" fill="#c9a96e" opacity="0.2"/>
-<circle cx="32" cy="78" r="1.2" fill="#c9a96e" opacity="0.15"/>
-</svg></div>
+    <!-- side flaps (visual lines only, decorative) -->
+    <div class="ef-l"></div>
+    <div class="ef-r"></div>
 
-<!-- Wax seal -->
-<div class="seal">
-<div class="seal-glow"></div>
-<div class="seal-outer">
-<div class="seal-inner">
-<span class="seal-icon">🌿</span>
-</div>
-</div>
+    <!-- bottom V fold -->
+    <div class="ef-bot"></div>
+
+    <!-- FRONT FACE – covers card completely when closed -->
+    <div class="ef-face">
+      <div class="seal" id="seal">R&amp;Y</div>
+    </div>
+
+    <!-- TOP FLAP – opens on click -->
+    <div class="ef-top" id="eflap">
+      <div class="ef-top-face"></div>
+    </div>
+
+  </div>
+
+  <div class="ov-orn"><span>✦</span></div>
+
+  <button id="ob"><span id="ob-txt">Шақыруды ашу</span></button>
+
+  <p class="ov-hint">29 · 08 · 2026</p>
 </div>
 
-<div class="hero-pretitle" data-kz="ҮЙЛЕНУ ТОЙЫ" data-ru="СВАДЬБА">ҮЙЛЕНУ ТОЙЫ</div>
-<h1 class="hero-names">
-<span data-kz="Айдос" data-ru="Айдос">Айдос</span><span class="amp">&</span><span data-kz="Айжан" data-ru="Айжан">Айжан</span>
-</h1>
-<div class="hero-subtitle" data-kz="Шақыру" data-ru="Приглашение">Шақыру</div>
-<div class="hero-divider"></div>
-<div class="hero-date" data-kz="15 Тамыз 2026" data-ru="15 Августа 2026">15 Тамыз 2026</div>
-<div class="hero-venue" data-kz="Алматы — «Жанар» мейрамханасы" data-ru="Алматы — Ресторан «Жанар»">Алматы — «Жанар» мейрамханасы</div>
-<div class="hero-scroll">
-<span data-kz="Төмендеңіз" data-ru="Вниз">Төмендеңіз</span>
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-</div>
-</section>
+<!-- ═══════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════ -->
+<div id="main" style="display:none;opacity:0">
 
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
+  <!-- ══ HERO ══ -->
+  <section id="hero">
 
-<!-- ═══ COUNTDOWN ═══ -->
-<section class="section">
-<div class="section-header">
-<span class="section-label" data-kz="Тойға дейін" data-ru="До свадьбы">Тойға дейін</span>
-<h2 class="section-title" data-kz="Сіздерді күтеміз" data-ru="Ждём вас">Сіздерді күтеміз</h2>
-</div>
-<div class="card reveal">
-<div class="countdown">
-<div class="cd-item"><span class="cd-num" id="days">00</span><span class="cd-label" data-kz="Күн" data-ru="Дней">Күн</span></div>
-<div class="cd-item"><span class="cd-num" id="hours">00</span><span class="cd-label" data-kz="Сағат" data-ru="Часов">Сағат</span></div>
-<div class="cd-item"><span class="cd-num" id="minutes">00</span><span class="cd-label" data-kz="Минут" data-ru="Минут">Минут</span></div>
-<div class="cd-item"><span class="cd-num" id="seconds">00</span><span class="cd-label" data-kz="Секунд" data-ru="Секунд">Секунд</span></div>
-</div>
-</div>
-</section>
+    <!-- corner leaves SVG -->
+    <svg class="leaf tl" viewBox="0 0 140 140" fill="currentColor" aria-hidden="true">
+      <path d="M8 132 Q18 88 60 50 Q98 16 132 8" stroke="currentColor" stroke-width="1.1" fill="none" opacity=".7"/>
+      <ellipse cx="32" cy="108" rx="18" ry="7" transform="rotate(-44 32 108)" opacity=".55"/>
+      <ellipse cx="50" cy="83"  rx="15" ry="6" transform="rotate(-54 50 83)"  opacity=".44"/>
+      <ellipse cx="70" cy="61"  rx="13" ry="5" transform="rotate(-63 70 61)"  opacity=".36"/>
+      <ellipse cx="91" cy="40"  rx="11" ry="4.5" transform="rotate(-70 91 40)" opacity=".27"/>
+      <ellipse cx="110" cy="23" rx="9"  ry="3.8" transform="rotate(-75 110 23)" opacity=".19"/>
+      <ellipse cx="21" cy="121" rx="9"  ry="4" transform="rotate(-30 21 121)" opacity=".39"/>
+      <ellipse cx="41" cy="96"  rx="11" ry="4.5" transform="rotate(-40 41 96)" opacity=".32"/>
+      <ellipse cx="61" cy="73"  rx="9"  ry="4" transform="rotate(-50 61 73)"  opacity=".26"/>
+    </svg>
+    <svg class="leaf tr" viewBox="0 0 140 140" fill="currentColor" aria-hidden="true">
+      <path d="M8 132 Q18 88 60 50 Q98 16 132 8" stroke="currentColor" stroke-width="1.1" fill="none" opacity=".7"/>
+      <ellipse cx="32" cy="108" rx="18" ry="7" transform="rotate(-44 32 108)" opacity=".55"/>
+      <ellipse cx="50" cy="83"  rx="15" ry="6" transform="rotate(-54 50 83)"  opacity=".44"/>
+      <ellipse cx="70" cy="61"  rx="13" ry="5" transform="rotate(-63 70 61)"  opacity=".36"/>
+      <ellipse cx="91" cy="40"  rx="11" ry="4.5" transform="rotate(-70 91 40)" opacity=".27"/>
+      <ellipse cx="21" cy="121" rx="9"  ry="4" transform="rotate(-30 21 121)" opacity=".39"/>
+      <ellipse cx="41" cy="96"  rx="11" ry="4.5" transform="rotate(-40 41 96)" opacity=".32"/>
+    </svg>
+    <svg class="leaf bl" viewBox="0 0 140 140" fill="currentColor" aria-hidden="true">
+      <path d="M8 132 Q18 88 60 50 Q98 16 132 8" stroke="currentColor" stroke-width="1.1" fill="none" opacity=".7"/>
+      <ellipse cx="32" cy="108" rx="18" ry="7" transform="rotate(-44 32 108)" opacity=".55"/>
+      <ellipse cx="50" cy="83"  rx="15" ry="6" transform="rotate(-54 50 83)"  opacity=".44"/>
+      <ellipse cx="70" cy="61"  rx="13" ry="5" transform="rotate(-63 70 61)"  opacity=".36"/>
+      <ellipse cx="91" cy="40"  rx="11" ry="4.5" transform="rotate(-70 91 40)" opacity=".27"/>
+    </svg>
+    <svg class="leaf br" viewBox="0 0 140 140" fill="currentColor" aria-hidden="true">
+      <path d="M8 132 Q18 88 60 50 Q98 16 132 8" stroke="currentColor" stroke-width="1.1" fill="none" opacity=".7"/>
+      <ellipse cx="32" cy="108" rx="18" ry="7" transform="rotate(-44 32 108)" opacity=".55"/>
+      <ellipse cx="50" cy="83"  rx="15" ry="6" transform="rotate(-54 50 83)"  opacity=".44"/>
+      <ellipse cx="70" cy="61"  rx="13" ry="5" transform="rotate(-63 70 61)"  opacity=".36"/>
+    </svg>
 
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
+    <p class="hon fd" id="h-hon">Құрметті</p>
 
-<!-- ═══ DATE ═══ -->
-<section class="section">
-<div class="section-header">
-<span class="section-label" data-kz="Дата" data-ru="Дата">Дата</span>
-<h2 class="section-title" data-kz="Сенбі, 15 Тамыз" data-ru="Суббота, 15 Августа">Сенбі, 15 Тамыз</h2>
-</div>
-<div class="card reveal">
-<div class="date">
-<div class="date-num">15</div>
-<div class="date-month" data-kz="Тамыз 2026" data-ru="Август 2026">Тамыз 2026</div>
-<div class="date-wd" data-kz="Сағат 16:00" data-ru="16:00">Сағат 16:00</div>
-<div style="margin-top:12px">
-<a href="#" class="btn-gold" onclick="addCal(event)">
-<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-<span data-kz="Күнтізбеге қосу" data-ru="В календарь">Күнтізбеге қосу</span>
-</a>
-</div>
-</div>
-</div>
-</section>
+    <div class="ruler fd d1" style="margin-bottom:20px"><span>✦</span></div>
 
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
+    <p class="inv-txt fd d2" id="h-inv">
+      СІЗДЕРДІ ҰЛЫМЫЗ БЕН КЕЛІНІМІЗДІҢ<br>
+      ҮЙЛЕНУ ТОЙЫНЫҢ ҚАДІРЛІ ҚОНАҒЫ<br>
+      БОЛУҒА ШАҚЫРАМЫЗ!
+    </p>
 
-<!-- ═══ TIMELINE ═══ -->
-<section class="section">
-<div class="section-header">
-<span class="section-label" data-kz="Бағдарлама" data-ru="Программа">Бағдарлама</span>
-<h2 class="section-title" data-kz="Той күні" data-ru="День торжества">Той күні</h2>
-</div>
-<div class="card reveal">
-<div class="tl">
-<div class="tl-item"><div class="tl-dot"></div><div class="tl-time">16:00</div><div class="tl-event" data-kz="Қонақтарды жинау, фотосессия" data-ru="Сбор гостей, фотосессия">Қонақтарды жинау, фотосессия</div></div>
-<div class="tl-item"><div class="tl-dot"></div><div class="tl-time">17:00</div><div class="tl-event" data-kz="Құдалық, қыз ұзату" data-ru="Выкуп, кыз узату">Құдалық, қыз ұзату</div></div>
-<div class="tl-item"><div class="tl-dot"></div><div class="tl-time">18:00</div><div class="tl-event" data-kz="Банкет, той басталуы" data-ru="Банкет, начало торжества">Банкет, той басталуы</div></div>
-<div class="tl-item"><div class="tl-dot"></div><div class="tl-time">20:00</div><div class="tl-event" data-kz="Той, билеу, көңілділік" data-ru="Танцы, веселье">Той, билеу, көңілділік</div></div>
-<div class="tl-item"><div class="tl-dot"></div><div class="tl-time">23:00</div><div class="tl-event" data-kz="Торт кесу, финал" data-ru="Торт, завершение">Торт кесу, финал</div></div>
-</div>
-</div>
-</section>
+    <div class="names fd d3">
+      <span class="name">Расул</span>
+      <span class="amp">&amp;</span>
+      <span class="name">Ясмина</span>
+    </div>
 
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
+    <div class="diam-rule fd d4" style="margin-bottom:16px"><div class="diam"></div></div>
+    <p class="fam-tag fd d4" id="h-fam">Абдуллаевтар әулеті</p>
 
-<!-- ═══ LOCATION ═══ -->
-<section class="section">
-<div class="section-header">
-<span class="section-label" data-kz="Өтетін жері" data-ru="Место">Өтетін жері</span>
-<h2 class="section-title" data-kz="Мейрамхана" data-ru="Ресторан">Мейрамхана</h2>
-</div>
-<div class="card reveal loc">
-<div class="loc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#162238" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-<div class="loc-name" data-kz="«Жанар» мейрамханасы" data-ru="Ресторан «Жанар»">«Жанар» мейрамханасы</div>
-<div class="loc-addr" data-kz="Алматы қаласы, Желтоқсан көшесі, 25" data-ru="г. Алматы, ул. Желтоқсан, 25">Алматы қаласы, Желтоқсан көшесі, 25</div>
-<div class="map-wrap"><div class="map-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg><div data-kz="2GIS картасы" data-ru="Карта 2GIS">2GIS картасы</div></div></div>
-<div class="map-btns">
-<a href="https://2gis.kz/almaty" target="_blank" class="map-btn" id="map2gis"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>2GIS</a>
-<a href="https://maps.google.com" target="_blank" class="map-btn" id="mapGoogle"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Google</a>
-</div>
-<div class="qr-wrap"><div id="qrcode"></div><div class="qr-text" data-kz="QR-кодты сканерлеңіз — карта ашылады" data-ru="Отсканируйте QR-код — откроется карта">QR-кодты сканерлеңіз — карта ашылады</div></div>
-</div>
-</section>
+  </section>
 
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
+  <!-- ══ DATE ══ -->
+  <section id="date">
+    <p class="sec-script fd" id="sc-date">Той күні</p>
+    <p class="sec-lbl fd d1" id="lbl-date">ТАМЫЗ · 2026</p>
 
-<!-- ═══ POEM ═══ -->
-<section class="section">
-<div class="section-header">
-<span class="section-label" data-kz="Тілек" data-ru="Пожелание">Тілек</span>
-<h2 class="section-title" data-kz="Біздің тілегіміз" data-ru="Наше пожелание">Біздің тілегіміз</h2>
-</div>
-<div class="card reveal poem">
-<div class="poem-text" data-kz="Біздің тойға кел, құрбы-құрдас,<br/>Тамақ бар, той бар, есте қалар кеш!<br/>Жақсының жақсылығын айт, бауырым,<br/>Бірге билейік, күлеміз — бұл біздің түн!" data-ru="Приходи на наш той, друзья и подруги,<br/>Еда есть, веселье есть — ночь запомнится вдруг!<br/>Говори добрые слова, братишка, сестрёнка,<br/>Будем танцевать до утра — это наше царство!">Біздің тойға кел, құрбы-құрдас,<br/>Тамақ бар, той бар, есте қалар кеш!<br/>Жақсының жақсылығын айт, бауырым,<br/>Бірге билейік, күлеміз — бұл біздің түн!</div>
-<div class="poem-div"></div>
-<div class="poem-trans" data-kz="Приходи на наш той, друзья и подруги,<br/>Еда есть, веселье есть — ночь запомнится вдруг!<br/>Говори добрые слова, братишка, сестрёнка,<br/>Будем танцевать до утра — это наше царство!" data-ru="Біздің тойға кел, құрбы-құрдас,<br/>Тамақ бар, той бар, есте қалар кеш!<br/>Жақсының жақсылығын айт, бауырым,<br/>Бірге билейік, күлеміз — бұл біздің түн!">Приходи на наш той, друзья и подруги,<br/>Еда есть, веселье есть — ночь запомнится вдруг!<br/>Говори добрые слова, братишка, сестрёнка,<br/>Будем танцевать до утра — это наше царство!</div>
-</div>
-</section>
+    <div class="cal-wrap fd d2">
+      <p class="cal-month" id="cal-month">Тамыз | 2026</p>
+      <div class="cal-grid">
+        <!-- headers -->
+        <span class="cal-dh" id="dh0">Дс</span>
+        <span class="cal-dh" id="dh1">Сс</span>
+        <span class="cal-dh" id="dh2">Ср</span>
+        <span class="cal-dh" id="dh3">Бс</span>
+        <span class="cal-dh" id="dh4">Жм</span>
+        <span class="cal-dh" id="dh5">Сб</span>
+        <span class="cal-dh" id="dh6">Жк</span>
+        <!-- Aug 2026: Aug 1 = Saturday (index 5 in Mon=0) → 5 empty cells first -->
+        <span class="cal-d empty"></span>
+        <span class="cal-d empty"></span>
+        <span class="cal-d empty"></span>
+        <span class="cal-d empty"></span>
+        <span class="cal-d empty"></span>
+        <span class="cal-d">1</span>
+        <span class="cal-d">2</span>
+        <span class="cal-d">3</span>
+        <span class="cal-d">4</span>
+        <span class="cal-d">5</span>
+        <span class="cal-d">6</span>
+        <span class="cal-d">7</span>
+        <span class="cal-d">8</span>
+        <span class="cal-d">9</span>
+        <span class="cal-d">10</span>
+        <span class="cal-d">11</span>
+        <span class="cal-d">12</span>
+        <span class="cal-d">13</span>
+        <span class="cal-d">14</span>
+        <span class="cal-d">15</span>
+        <span class="cal-d">16</span>
+        <span class="cal-d">17</span>
+        <span class="cal-d">18</span>
+        <span class="cal-d">19</span>
+        <span class="cal-d">20</span>
+        <span class="cal-d">21</span>
+        <span class="cal-d">22</span>
+        <span class="cal-d">23</span>
+        <span class="cal-d">24</span>
+        <span class="cal-d">25</span>
+        <span class="cal-d">26</span>
+        <span class="cal-d">27</span>
+        <span class="cal-d">28</span>
+        <span class="cal-d wedding">29</span>
+        <span class="cal-d">30</span>
+        <span class="cal-d">31</span>
+        <span class="cal-d empty"></span>
+        <span class="cal-d empty"></span>
+        <span class="cal-d empty"></span>
+        <span class="cal-d empty"></span>
+        <span class="cal-d empty"></span>
+        <span class="cal-d empty"></span>
+      </div>
+    </div>
 
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
+    <div class="time-block fd d3">
+      <div class="time-ring" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16.5 14.5"/>
+        </svg>
+      </div>
+      <p class="time-val">19:00</p>
+      <p class="time-lbl" id="lbl-time">Бастау уақыты</p>
+    </div>
+  </section>
 
-<!-- ═══ DRESS CODE ═══ -->
-<section class="section">
-<div class="section-header">
-<span class="section-label" data-kz="Дресс-код" data-ru="Дресс-код">Дресс-код</span>
-<h2 class="section-title" data-kz="Кейім үлгісі" data-ru="Стиль одежды">Кейім үлгісі</h2>
-</div>
-<div class="card reveal">
-<div class="dc-desc" data-kz="Түс палитрасы:" data-ru="Цветовая палитра:">Түс палитрасы:</div>
-<div class="dc-colors">
-<div class="dc-item"><div class="dc-swatch" style="background:linear-gradient(135deg,#1B2A4A,#2C3E6D)"></div><div class="dc-name" data-kz="Темно-көк" data-ru="Тёмно-синий">Темно-көк</div></div>
-<div class="dc-item"><div class="dc-swatch" style="background:linear-gradient(135deg,#C9A96E,#D4AF37)"></div><div class="dc-name" data-kz="Алтын" data-ru="Золотой">Алтын</div></div>
-<div class="dc-item"><div class="dc-swatch" style="background:linear-gradient(135deg,#2C1810,#4A2C1A)"></div><div class="dc-name" data-kz="Шоколад" data-ru="Шоколад">Шоколад</div></div>
-<div class="dc-item"><div class="dc-swatch" style="background:linear-gradient(135deg,#F5F0E8,#E8E0D0)"></div><div class="dc-name" data-kz="Крем" data-ru="Крем">Крем</div></div>
-</div>
-<div class="dc-desc" data-kz="Кешкі стиль, элеганттылық 💫" data-ru="Вечерний стиль, элегантность 💫">Кешкі стиль, элеганттылық 💫</div>
-</div>
-</section>
+  <!-- ══ VENUE ══ -->
+  <section id="venue" style="padding:0">
+    <div class="venue-top"></div>
 
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
+    <div style="background:var(--navy2);padding:50px 16px 0">
+      <div class="venue-card fd">
+        <p class="sec-script" id="sc-venue">Той өтетін орын</p>
+        <div class="thin-dark"></div>
+        <p class="venue-name">«Алтын-2»</p>
+        <p class="venue-hall" id="v-hall">салтанат сарайы</p>
+        <p class="venue-addr" id="v-addr">
+          Атакент кенті,<br>Алматы облысы
+        </p>
+        <a class="map-pill" id="map-btn"
+           href="https://2gis.kz/almaty/search/%D0%90%D0%BB%D1%82%D1%8B%D0%BD%202%20%D1%81%D0%B0%D0%BB%D1%82%D0%B0%D0%BD%D0%B0%D1%82"
+           target="_blank" rel="noopener">Картада көру &rarr;</a>
+      </div>
+    </div>
+    <div class="venue-bot"></div>
+  </section>
 
-<!-- ═══ RSVP ═══ -->
-<section class="section">
-<div class="section-header">
-<span class="section-label" data-kz="Жауап" data-ru="Ответ">Жауап</span>
-<h2 class="section-title" data-kz="Келесіз бе?" data-ru="Придёте?">Келесіз бе?</h2>
-</div>
-<div class="card reveal" style="text-align:center">
-<div class="rsvp-text" data-kz="Бізге білдіріп қалдыр — той дайындығы үшін маңызды!" data-ru="Дайте нам знать — это важно для подготовки!">Бізге білдіріп қалдыр — той дайындығы үшін маңызды!</div>
-<div class="rsvp-btns">
-<button class="rsvp-yes" onclick="openModal('yes')"><span data-kz="Мен келемін ✓" data-ru="Я приду ✓">Мен келемін ✓</span></button>
-<button class="rsvp-no" onclick="openModal('no')"><span data-kz="Келе алмаймын ✕" data-ru="Не смогу ✕">Келе алмаймын ✕</span></button>
-</div>
-<div class="rsvp-dl" data-kz="Жауап беру мерзімі: 1 тамыз" data-ru="Ответить до: 1 августа">Жауап беру мерзімі: 1 тамыз</div>
-</div>
-</section>
+  <!-- ══ COUNTDOWN ══ -->
+  <section id="cdown">
+    <p class="sec-script fd" id="sc-cd">Тойға дейін қалды</p>
+    <p class="cd-sub fd d1" id="cd-sub">«Иә» дейміз…</p>
+    <div class="cd-grid fd d2">
+      <div class="cd-item"><span class="cd-num" id="cd-d">—</span><p class="cd-lbl" id="lbl-d">Күн</p></div>
+      <div class="cd-item"><span class="cd-num" id="cd-h">—</span><p class="cd-lbl" id="lbl-h">Сағат</p></div>
+      <div class="cd-item"><span class="cd-num" id="cd-m">—</span><p class="cd-lbl" id="lbl-m">Минут</p></div>
+      <div class="cd-item"><span class="cd-num" id="cd-s">—</span><p class="cd-lbl" id="lbl-s">Секунд</p></div>
+    </div>
+  </section>
 
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <p class="ft-tag" id="ft-tag">Ізгі ниетпен</p>
+    <p class="ft-fam" id="ft-fam">Абдуллаевтар әулеті</p>
+    <div class="ft-div"></div>
+    <p class="ft-couple">Расул &amp; Ясмина &nbsp;·&nbsp; 29.08.2026</p>
+  </footer>
 
-<!-- ═══ GIFTS ═══ -->
-<section class="section">
-<div class="section-header">
-<span class="section-label" data-kz="Сыйлық" data-ru="Подарок">Сыйлық</span>
-<h2 class="section-title" data-kz="Сыйлық туралы" data-ru="О подарках">Сыйлық туралы</h2>
-</div>
-<div class="card reveal" style="text-align:center">
-<div class="gift-icon">🎁</div>
-<div class="gift-text" data-kz="Ең жақсы сыйлық — сіздің қатысуыңыз!<br/>Бірақ егер қаласаңыз — Kaspi Gold картаға аударым қабылдаймыз 💛" data-ru="Самый лучший подарок — ваше присутствие!<br/>Но если хотите — перевод на Kaspi Gold 💛">Ең жақсы сыйлық — сіздің қатысуыңыз!<br/>Бірақ егер қаласаңыз — Kaspi Gold картаға аударым қабылдаймыз 💛</div>
-<div class="kaspi">
-<div class="kaspi-label">Kaspi Gold</div>
-<div class="kaspi-num" id="kaspiDisplay">4400 4301 2538 1012</div>
-<button class="btn-copy" onclick="copyKaspi()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span data-kz="Көшіру" data-ru="Копировать">Көшіру</span></button>
-<div class="copy-toast" id="copyToast" data-kz="Көшірілді! ✅" data-ru="Скопировано! ✅">Көшірілді! ✅</div>
-</div>
-</div>
-</section>
-
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
-
-<!-- ═══ PHOTOS ═══ -->
-<section class="section">
-<div class="section-header">
-<span class="section-label" data-kz="Фото" data-ru="Фото">Фото</span>
-<h2 class="section-title" data-kz="Естеліктер" data-ru="Воспоминания">Естеліктер</h2>
-</div>
-<div class="gal-hint" data-kz="Хештегпен бөлісіңіз 📸" data-ru="Делитесь с хештегом 📸">Хештегпен бөлісіңіз 📸</div>
-<div class="gallery reveal">
-<div class="polaroid"><img src="https://picsum.photos/seed/wed1/300/300" alt="Photo" loading="lazy"/><div class="polaroid-cap">♡</div></div>
-<div class="polaroid"><img src="https://picsum.photos/seed/wed2/300/300" alt="Photo" loading="lazy"/><div class="polaroid-cap">∞</div></div>
-<div class="polaroid"><img src="https://picsum.photos/seed/wed3/300/300" alt="Photo" loading="lazy"/><div class="polaroid-cap">✨</div></div>
-<div class="polaroid"><img src="https://picsum.photos/seed/wed4/300/300" alt="Photo" loading="lazy"/><div class="polaroid-cap">♡</div></div>
-</div>
-</section>
-
-<!-- Gold divider -->
-<div class="gold-divider"><div class="line"></div><div class="diamond-sm"></div><div class="diamond"></div><div class="diamond-sm"></div><div class="line"></div></div>
-
-<!-- ═══ HASHTAG ═══ -->
-<section class="hashtag reveal">
-<span class="hashtag-label" data-kz="Біздің хештег" data-ru="Наш хештег">Біздің хештег</span>
-<div class="hashtag-tag" onclick="copyHashtag()">#АйдосАйжан2026</div>
-<div class="hashtag-hint" data-kz="Басып, көшіру" data-ru="Нажмите, чтобы скопировать">Басып, көшіру</div>
-<div class="socials">
-<a href="https://instagram.com" target="_blank" class="soc-link" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="#c9a96e" stroke="none"/></svg></a>
-<a href="https://wa.me/77001234567" target="_blank" class="soc-link" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01.198 0 .52.074.792.372m8.535 8.232A9.953 9.953 0 0 0 22 12a10 10 0 0 0-10-10A10 10 0 0 0 2 12c0 2.021.601 3.9 1.632 5.475L2 22l4.725-1.237A9.96 9.96 0 0 0 12 22a10 10 0 0 0 10-10 9.953 9.953 0 0 0-.293-2.386z"/></svg></a>
-<a href="https://tiktok.com" target="_blank" class="soc-link" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></a>
-</div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<footer class="footer">
-<div class="footer-text">
-<span data-kz="Сіздерді күтеміз!" data-ru="Ждём вас!">Сіздерді күтеміз!</span><br>
-<span class="footer-names">Айдос & Айжан</span><br>
-<span style="font-size:12px;opacity:.5">2026</span>
-</div>
-</footer>
-
-</div><!-- /main -->
-
-<!-- ═══ MUSIC PLAYER ═══ -->
-<div class="music">
-<button class="music-btn" id="musicBtn" onclick="toggleMusic()" aria-label="Music">
-<svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-<svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-</button>
-</div>
-
-<audio id="weddingMusic" preload="none"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
-
-<!-- ═══ RSVP MODAL ═══ -->
-<div class="modal" id="rsvpModal" onclick="if(event.target===this)closeModal()">
-<div class="modal-box">
-<div class="modal-title" id="modalTitle">Тамаша!</div>
-<div class="modal-desc" id="modalDesc" data-kz="Растау үшін хабарласыңыз:" data-ru="Для подтверждения напишите:">Растау үшін хабарласыңыз:</div>
-<div class="modal-btns">
-<a href="#" class="btn-wa" id="waLink" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01.198 0 .52.074.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L2 22l4.725-1.237A9.96 9.96 0 0 0 12 22a10 10 0 0 0 10-10 9.953 9.953 0 0 0-.293-2.386z"/></svg>WhatsApp</a>
-<a href="#" class="btn-tg" id="tgLink" target="_blank"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-17.15 6.61a1.6 1.6 0 0 0 .277 3.07l4.254.956.96 4.255a1.6 1.6 0 0 0 3.07.277l6.61-17.15a2.242 2.242 0 0 0-1.02-4.233zM8.047 14.4l-.338 2.267 2.268-.338 7.35-7.35-1.93-1.93z"/></svg>Telegram</a>
-</div>
-<button class="btn-close" onclick="closeModal()" data-kz="Жабу" data-ru="Закрыть">Жабу</button>
-</div>
-</div>
+</div><!-- #main -->
 
 <script>
-// ═══════════════════════════════════════════
-// CONFIG
-// ═══════════════════════════════════════════
-var C={weddingDate:new Date(2026,7,15,16,0,0),whatsapp:'77001234567',telegram:'aidos_aizhan_wedding',kaspi:'4400 4301 2538 1012',hashtag:'#АйдосАйжан2026'};
-var L='kz';
+/* ─── Translations ────────────────────────── */
+const T={
+  kk:{
+    open:'Шақыруды ашу',hon:'Құрметті',
+    inv:'СІЗДЕРДІ ҰЛЫМЫЗ БЕН КЕЛІНІМІЗДІҢ<br>ҮЙЛЕНУ ТОЙЫНЫҢ ҚАДІРЛІ ҚОНАҒЫ<br>БОЛУҒА ШАҚЫРАМЫЗ!',
+    scDate:'Той күні',lblDate:'ТАМЫЗ · 2026',calMonth:'Тамыз | 2026',
+    lblTime:'Бастау уақыты',
+    scVenue:'Той өтетін орын',vHall:'салтанат сарайы',
+    vAddr:'Атакент кенті,<br>Алматы облысы',mapBtn:'Картада көру →',
+    scCd:'Тойға дейін қалды',cdSub:'«Иә» дейміз…',
+    d:'Күн',h:'Сағат',m:'Минут',s:'Секунд',
+    ftTag:'Ізгі ниетпен',ftFam:'Абдуллаевтар әулеті',hFam:'Абдуллаевтар әулеті',
+    dh:['Дс','Сс','Ср','Бс','Жм','Сб','Жк'],
+  },
+  ru:{
+    open:'Открыть приглашение',hon:'Уважаемые',
+    inv:'МЫ С РАДОСТЬЮ ПРИГЛАШАЕМ ВАС<br>НА СВАДЬБУ НАШЕГО СЫНА И НЕВЕСТКИ<br>И ПРОСИМ СТАТЬ НАШИМ ПОЧЁТНЫМ ГОСТЕМ!',
+    scDate:'Наша дата',lblDate:'АВГУСТ · 2026',calMonth:'Август | 2026',
+    lblTime:'Начало торжества',
+    scVenue:'Место проведения',vHall:'банкетный зал',
+    vAddr:'Посёлок Атакент,<br>Алматинская область',mapBtn:'Место на карте →',
+    scCd:'До свадьбы осталось',cdSub:'Мы скажем «Да»…',
+    d:'Дней',h:'Часов',m:'Минут',s:'Секунд',
+    ftTag:'С наилучшими пожеланиями',ftFam:'Семья Абдуллаевых',hFam:'Семья Абдуллаевых',
+    dh:['Пн','Вт','Ср','Чт','Пт','Сб','Вс'],
+  }
+};
 
-// ═══════════════════════════════════════════
-// LANGUAGE SWITCHING
-// ═══════════════════════════════════════════
+let lang='kk';
 function setLang(l){
-L=l;
-var btns=document.querySelectorAll('.lang-btn');
-for(var i=0;i<btns.length;i++)btns[i].classList.toggle('active',btns[i].getAttribute('data-lang')===l);
-document.documentElement.lang=l==='kz'?'kk':'ru';
-var els=document.querySelectorAll('[data-kz][data-ru]');
-for(var i=0;i<els.length;i++){
-var t=els[i].getAttribute('data-'+l);
-if(t)els[i].innerHTML=t;
+  lang=l;document.documentElement.lang=l;
+  const t=T[l];
+  document.getElementById('ob-txt').textContent  = t.open;
+  document.getElementById('c-hon').textContent   = t.hon;
+  document.getElementById('h-hon').textContent   = t.hon;
+  document.getElementById('h-inv').innerHTML     = t.inv;
+  document.getElementById('h-fam').textContent   = t.hFam;
+  document.getElementById('sc-date').textContent = t.scDate;
+  document.getElementById('lbl-date').textContent= t.lblDate;
+  document.getElementById('cal-month').textContent= t.calMonth;
+  document.getElementById('lbl-time').textContent= t.lblTime;
+  document.getElementById('sc-venue').textContent= t.scVenue;
+  document.getElementById('v-hall').textContent  = t.vHall;
+  document.getElementById('v-addr').innerHTML    = t.vAddr;
+  document.getElementById('map-btn').textContent = t.mapBtn;
+  document.getElementById('sc-cd').textContent   = t.scCd;
+  document.getElementById('cd-sub').textContent  = t.cdSub;
+  document.getElementById('lbl-d').textContent   = t.d;
+  document.getElementById('lbl-h').textContent   = t.h;
+  document.getElementById('lbl-m').textContent   = t.m;
+  document.getElementById('lbl-s').textContent   = t.s;
+  document.getElementById('ft-tag').textContent  = t.ftTag;
+  document.getElementById('ft-fam').textContent  = t.ftFam;
+  // calendar headers
+  for(let i=0;i<7;i++) document.getElementById('dh'+i).textContent = t.dh[i];
+  document.getElementById('bkk').classList.toggle('on',l==='kk');
+  document.getElementById('bru').classList.toggle('on',l==='ru');
 }
-var kl=['Күн','Сағат','Минут','Секунд'],rl=['Дней','Часов','Минут','Секунд'];
-var cds=document.querySelectorAll('.cd-label');
-for(var i=0;i<cds.length;i++)cds[i].textContent=L==='kz'?kl[i]:rl[i];
-}
+document.getElementById('bkk').addEventListener('click',()=>setLang('kk'));
+document.getElementById('bru').addEventListener('click',()=>setLang('ru'));
 
-// ═══════════════════════════════════════════
-// COUNTDOWN
-// ═══════════════════════════════════════════
+/* ─── Envelope animation ──────────────────── */
+let clicked=false;
+document.getElementById('ob').addEventListener('click',function(){
+  if(clicked)return; clicked=true;
+  this.style.opacity='0'; this.style.pointerEvents='none';
+
+  // 1. open flap (rotates backward revealing card underneath)
+  document.getElementById('eflap').classList.add('open');
+
+  // 2. after flap opens, face fades so card becomes visible, then card rises
+  setTimeout(()=>{
+    const face=document.querySelector('.ef-face');
+    face.style.transition='opacity .5s ease';
+    face.style.opacity='0';
+  },600);
+
+  setTimeout(()=>{
+    document.getElementById('ecard').classList.add('rise');
+  },900);
+
+  // 3. fade overlay → reveal main
+  setTimeout(()=>{
+    document.getElementById('ov').classList.add('hide');
+    const m=document.getElementById('main');
+    m.style.display='block';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      m.style.opacity='1';
+      document.getElementById('nav').classList.add('on');
+    }));
+    setTimeout(()=>document.getElementById('ov').style.display='none',750);
+  },2100);
+});
+
+/* ─── Countdown ───────────────────────────── */
+const TGT=new Date('2026-08-29T19:00:00');
+const p=n=>String(n).padStart(2,'0');
 function tick(){
-var n=new Date(),d=C.weddingDate-n;
-if(d<=0){
-document.getElementById('days').textContent='00';
-document.getElementById('hours').textContent='00';
-document.getElementById('minutes').textContent='00';
-document.getElementById('seconds').textContent='00';
-return;
+  const d=TGT-Date.now();
+  if(d<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(id=>document.getElementById(id).textContent='00');return}
+  document.getElementById('cd-d').textContent=p(Math.floor(d/86400000));
+  document.getElementById('cd-h').textContent=p(Math.floor(d%86400000/3600000));
+  document.getElementById('cd-m').textContent=p(Math.floor(d%3600000/60000));
+  document.getElementById('cd-s').textContent=p(Math.floor(d%60000/1000));
 }
-var da=Math.floor(d/864e5),h=Math.floor((d%864e5)/36e5),m=Math.floor((d%36e5)/6e4),s=Math.floor((d%6e4)/1e3);
-document.getElementById('days').textContent=(da<10?'0':'')+da;
-document.getElementById('hours').textContent=(h<10?'0':'')+h;
-document.getElementById('minutes').textContent=(m<10?'0':'')+m;
-document.getElementById('seconds').textContent=(s<10?'0':'')+s;
-}
-setInterval(tick,1000);
-tick();
+tick(); setInterval(tick,1000);
 
-// ═══════════════════════════════════════════
-// CALENDAR (.ics)
-// ═══════════════════════════════════════════
-function addCal(e){
-e.preventDefault();
-var s=C.weddingDate,e2=new Date(s.getTime()+216e5);
-var f=function(d){return d.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z'};
-var ics='BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//AA//Wedding//EN\r\nBEGIN:VEVENT\r\nDTSTART:'+f(s)+'\r\nDTEND:'+f(e2)+'\r\nSUMMARY:'+(L==='kz'?'Айдос пен Айжанның үйлену тойы':'Свадьба Айдоса и Айжан')+'\r\nDESCRIPTION:'+(L==='kz'?'Тойға қош келдіңіз!':'Приглашаем на свадьбу!')+'\r\nLOCATION:г. Алматы, ул. Желтоқсан, 25\r\nEND:VEVENT\r\nEND:VCALENDAR';
-var b=new Blob([ics],{type:'text/calendar'}),u=URL.createObjectURL(b),a=document.createElement('a');
-a.href=u;a.download='wedding.ics';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
-}
+/* ─── Scroll fade-in ──────────────────────── */
+const fo=new IntersectionObserver(entries=>
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),
+  {threshold:.1});
+document.querySelectorAll('.fd').forEach(el=>fo.observe(el));
 
-// ═══════════════════════════════════════════
-// QR CODE (inline canvas — no external lib)
-// ═══════════════════════════════════════════
-function genQR(){
-var container=document.getElementById('qrcode');
-if(!container)return;
-// Try simple canvas QR first
-var canvas=document.createElement('canvas');
-canvas.width=80;canvas.height=80;
-var ctx=canvas.getContext('2d');
-if(ctx){
-ctx.fillStyle='#162238';ctx.fillRect(0,0,80,80);
-ctx.fillStyle='#c9a96e';
-// Draw a simple pattern to represent QR
-for(var y=0;y<8;y++){
-for(var x=0;x<8;x++){
-var r=Math.random();
-if(r>0.45)ctx.fillRect(x*10,y*10,10,10);
-}
-}
-// Position markers
-for(var i=0;i<3;i++){
-var px=[5,55,5][i],py=[5,5,55][i];
-ctx.fillStyle='#162238';ctx.fillRect(px-2,py-2,24,24);
-ctx.fillStyle='#c9a96e';ctx.fillRect(px,py,20,20);
-ctx.fillStyle='#162238';ctx.fillRect(px+5,py+5,10,10);
-}
-container.appendChild(canvas);
-// Also set click to open map
-container.style.cursor='pointer';
-container.onclick=function(){window.open('https://2gis.kz/almaty','_blank');};
-}else{
-// Fallback: use external QR service
-container.innerHTML='<img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://2gis.kz/almaty" style="width:80px;height:80px;border-radius:4px" alt="QR">';
-}
-}
-
-// ═══════════════════════════════════════════
-// RSVP MODAL
-// ═══════════════════════════════════════════
-function openModal(t){
-var m=document.getElementById('rsvpModal'),mt=document.getElementById('modalTitle'),md=document.getElementById('modalDesc'),wa=document.getElementById('waLink'),tg=document.getElementById('tgLink');
-mt.textContent=t==='yes'?(L==='kz'?'Тамаша! 🎉':'Отлично! 🎉'):(L==='kz'?'Өкінішті 😔':'Жаль 😔');
-md.textContent=L==='kz'?'Растау үшін хабарласыңыз:':'Для подтверждения напишите:';
-var kk=t==='yes'?'Сәлем! Мен Айдос пен Айжанның тойына келемін 💍':'Сәлем, кешіріңіз, мен тойға келе алмаймын 😢';
-var kr=t==='yes'?'Привет! Я приду на свадьбу Айдоса и Айжан 💍':'Привет, извини, я не смогу прийти на свадьбу 😢';
-var msg=L==='kz'?kk:kr;
-wa.href='https://wa.me/'+C.whatsapp+'?text='+encodeURIComponent(msg);
-tg.href='https://t.me/'+C.telegram+'?start='+encodeURIComponent(msg);
-m.classList.add('active');
-}
-function closeModal(){document.getElementById('rsvpModal').classList.remove('active');}
-
-// ═══════════════════════════════════════════
-// COPY FUNCTIONS
-// ═══════════════════════════════════════════
-function copyKaspi(){
-try{
-navigator.clipboard.writeText(C.kaspi).then(function(){showToast('copyToast');},function(){
-var t=document.createElement('textarea');t.value=C.kaspi;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);showToast('copyToast');
-});
-}catch(e){
-var t=document.createElement('textarea');t.value=C.kaspi;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);showToast('copyToast');
-}
-}
-function showToast(id){
-var el=document.getElementById(id);if(!el)return;
-el.classList.add('show');
-setTimeout(function(){el.classList.remove('show');},2000);
-}
-function copyHashtag(){
-try{
-navigator.clipboard.writeText(C.hashtag).then(function(){
-var h=document.querySelector('.hashtag-hint'),o=h.textContent;
-h.textContent=L==='kz'?'Көшірілді! ✅':'Скопировано! ✅';
-setTimeout(function(){h.textContent=o;},2000);
-},function(){
-var t=document.createElement('textarea');t.value=C.hashtag;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);
-});
-}catch(e){
-var t=document.createElement('textarea');t.value=C.hashtag;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);
-}
-}
-
-// ═══════════════════════════════════════════
-// MUSIC PLAYER
-// ═══════════════════════════════════════════
-var playing=false;
-function toggleMusic(){
-var a=document.getElementById('weddingMusic'),p=document.getElementById('playIcon'),s=document.getElementById('pauseIcon'),b=document.getElementById('musicBtn');
-if(playing){a.pause();p.style.display='block';s.style.display='none';b.classList.remove('playing');}
-else{a.play().catch(function(e){console.log(e)});p.style.display='none';s.style.display='block';b.classList.add('playing');}
-playing=!playing;
-}
-
-// ═══════════════════════════════════════════
-// ENVELOPE SPLASH
-// ═══════════════════════════════════════════
-var splashTimer=null;
-function skipEnvelope(){
-var s=document.getElementById('envelopeSplash');
-if(s){s.classList.add('done');clearTimeout(splashTimer);}
-}
-// Auto-dismiss after animation
-splashTimer=setTimeout(function(){
-var s=document.getElementById('envelopeSplash');if(s)s.classList.add('done');
-},4300);
-
-// ═══════════════════════════════════════════
-// GOLD PARTICLES (canvas)
-// ═══════════════════════════════════════════
-(function(){
-var canvas=document.getElementById('goldCanvas');
-if(!canvas)return;
-var ctx=canvas.getContext('2d');
-if(!ctx)return;
-var w,h,particles=[];
-function resize(){
-w=canvas.width=window.innerWidth;
-h=canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener('resize',resize);
-for(var i=0;i<40;i++){
-particles.push({
-x:Math.random()*w,y:Math.random()*h,
-size:Math.random()*2+0.5,
-speedX:(Math.random()-0.5)*0.2,
-speedY:(Math.random()-0.5)*0.2,
-opacity:Math.random()*0.4+0.1
-});
-}
-function animate(){
-ctx.clearRect(0,0,w,h);
-for(var i=0;i<particles.length;i++){
-var p=particles[i];
-p.x+=p.speedX;p.y+=p.speedY;
-if(p.x<0)p.x=w;if(p.x>w)p.x=0;
-if(p.y<0)p.y=h;if(p.y>h)p.y=0;
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-ctx.fillStyle='rgba(201,169,110,'+p.opacity+')';
-ctx.fill();
-}
-requestAnimationFrame(animate);
-}
-animate();
-})();
-
-// ═══════════════════════════════════════════
-// SCROLL REVEAL
-// ═══════════════════════════════════════════
-(function(){
-var observer=new IntersectionObserver(function(entries){
-for(var i=0;i<entries.length;i++){
-if(entries[i].isIntersecting)entries[i].target.classList.add('visible');
-}
-},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
-var els=document.querySelectorAll('.reveal');
-for(var i=0;i<els.length;i++)observer.observe(els[i]);
-})();
-
-// ═══════════════════════════════════════════
-// INIT (works in Telegram WebView too)
-// ═══════════════════════════════════════════
-function init(){
-genQR();
-setLang('kz');
-document.getElementById('map2gis').href='https://2gis.kz/almaty';
-document.getElementById('mapGoogle').href='https://maps.google.com';
-}
-// Try both methods for maximum compatibility
-if(document.readyState==='loading'){
-document.addEventListener('DOMContentLoaded',init);
-}else{
-init();
-}
-// Also init on window load (backup)
-window.addEventListener('load',init);
+/* ─── Nav dots ────────────────────────────── */
+const secs=Array.from(document.querySelectorAll('section'));
+const dots=Array.from(document.querySelectorAll('.dot'));
+dots.forEach(b=>b.addEventListener('click',()=>
+  document.getElementById(b.dataset.s)?.scrollIntoView({behavior:'smooth'})));
+const so=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const i=secs.indexOf(e.target);
+  dots.forEach((d,j)=>d.classList.toggle('on',j===i));
+}),{threshold:.45});
+secs.forEach(s=>so.observe(s));
 </script>
 </body>
 </html>
