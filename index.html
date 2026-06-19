@@ -267,9 +267,7 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
 .cal-d.wedding{
   background:var(--wine);color:var(--w);font-weight:600;
   box-shadow:0 0 14px rgba(107,37,55,.55);font-size:clamp(1rem,3.6vw,1.2rem);
-  flex-direction:column;gap:0;line-height:1;height:36px;width:36px;padding-top:2px;
 }
-.cal-d.wedding::after{content:'♥';font-size:.45rem;opacity:.9;line-height:1;margin-top:1px}
 .cal-d.empty{opacity:0;pointer-events:none}
 
 .time-block{margin-top:4px}
@@ -689,7 +687,7 @@ footer{padding:56px 28px 44px;text-align:center;
     <p class="h-name fd d2" id="h-bride">Ясмина</p>
 
     <div class="h-rule fd d3"><span>✦</span></div>
-    <p class="h-fam fd d3" id="h-fam">Абдуллаевтар әулеті</p>
+    <span id="h-fam" style="display:none"></span>
 
     <span class="h-arrow">↓</span>
   </section>
@@ -797,7 +795,7 @@ footer{padding:56px 28px 44px;text-align:center;
     <span class="sp" style="width:3px;height:3px;top:32%;left:10%;--dur:4s;--del:1.8s;--op:.35"></span>
     <span class="sp" style="width:2px;height:2px;top:80%;right:26%;--dur:3.5s;--del:.7s;--op:.3"></span>
     <p class="sec-script fd" id="sc-cd">Тойға дейін қалды</p>
-    <p class="cd-sub fd d1" id="cd-sub">«Иә» дейміз…</p>
+    <span id="cd-sub" style="display:none"></span>
     <div class="cd-grid fd d2">
       <div class="cd-item"><span class="cd-num" id="cd-d">—</span><p class="cd-lbl" id="lbl-d">Күн</p></div>
       <div class="cd-item"><span class="cd-num" id="cd-h">—</span><p class="cd-lbl" id="lbl-h">Сағат</p></div>
@@ -908,10 +906,9 @@ document.getElementById('bkk').addEventListener('click',()=>setLang('kk'));
 document.getElementById('bru').addEventListener('click',()=>setLang('ru'));
 
 /* ─── Envelope ──────────────────────────── */
-let clicked=false;
-document.getElementById('ob').addEventListener('click',function(){
-  if(clicked)return; clicked=true;
-  this.style.opacity='0'; this.style.pointerEvents='none';
+function openEnvelope(){
+  const btn=document.getElementById('ob');
+  btn.style.opacity='0'; btn.style.pointerEvents='none';
   document.getElementById('eflap').classList.add('open');
   setTimeout(()=>{
     const f=document.querySelector('.ef-face');
@@ -928,7 +925,10 @@ document.getElementById('ob').addEventListener('click',function(){
     }));
     setTimeout(()=>document.getElementById('ov').style.display='none',750);
   },2100);
-});
+}
+/* auto-open after 1.2 s; button also triggers it */
+setTimeout(openEnvelope, 1200);
+document.getElementById('ob').addEventListener('click', openEnvelope);
 
 /* ─── Countdown ─────────────────────────── */
 const TGT=new Date('2026-08-29T19:00:00');
