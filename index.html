@@ -160,6 +160,7 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
 .bota{position:absolute;pointer-events:none}
 .bota.bl{bottom:0;left:0;width:clamp(160px,56vw,240px)}
 .bota.tr{top:0;right:0;width:clamp(130px,46vw,200px)}
+.bota.sak{top:4%;left:0;width:clamp(150px,52vw,220px)}
 
 /* ── groom / bride names ── */
 .h-name{
@@ -177,6 +178,7 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   font-family:'Cormorant',serif;font-weight:400;
   font-size:clamp(5.5rem,20vw,9rem);
   color:var(--wine);line-height:.88;letter-spacing:-.02em;
+  font-variant-numeric:lining-nums tabular-nums;
 }
 .h-heart{display:none}
 
@@ -260,7 +262,7 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
 .cal-d{font-family:'Cormorant',serif;font-weight:500;
   font-size:clamp(1.15rem,4.2vw,1.4rem);color:var(--w);
   width:34px;height:34px;display:flex;align-items:center;justify-content:center;
-  border-radius:50%}
+  border-radius:50%;font-variant-numeric:lining-nums tabular-nums;}
 .cal-d.wedding{
   background:var(--wine);color:var(--w);font-weight:700;
   box-shadow:0 0 14px rgba(107,37,55,.55);
@@ -647,6 +649,110 @@ footer{padding:56px 28px 44px;text-align:center;
       <path d="M210 0 Q200 20 198 40" stroke="#b89870" stroke-width="1" opacity=".35"/>
       <path d="M198 40 Q202 30 208 24" stroke="#b89870" stroke-width=".8" opacity=".28"/>
       <path d="M198 40 Q192 32 196 26" stroke="#b89870" stroke-width=".8" opacity=".28"/>
+    </svg>
+
+    <!-- Sakura branch — left side, mid-height, extending right -->
+    <svg class="bota sak" viewBox="0 0 240 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- main branch from left edge curving up-right -->
+      <path d="M0 230 Q38 205 72 178 Q105 152 128 120" stroke="#5a3428" stroke-width="5" stroke-linecap="round" opacity=".55"/>
+      <path d="M128 120 Q148 96 162 68 Q172 46 178 22" stroke="#5a3428" stroke-width="3.5" stroke-linecap="round" opacity=".50"/>
+      <!-- sub-branch 1: from (72,178) going up-left -->
+      <path d="M72 178 Q52 155 36 128" stroke="#5a3428" stroke-width="2.5" stroke-linecap="round" opacity=".48"/>
+      <path d="M36 128 Q22 108 14 86" stroke="#5a3428" stroke-width="1.8" stroke-linecap="round" opacity=".42"/>
+      <!-- sub-branch 2: from (128,120) going right -->
+      <path d="M128 120 Q155 108 180 98" stroke="#5a3428" stroke-width="2.2" stroke-linecap="round" opacity=".46"/>
+      <path d="M180 98 Q200 90 218 82" stroke="#5a3428" stroke-width="1.5" stroke-linecap="round" opacity=".40"/>
+      <!-- sub-branch 3: small twig from (162,68) -->
+      <path d="M162 68 Q178 58 192 44" stroke="#5a3428" stroke-width="1.6" stroke-linecap="round" opacity=".42"/>
+      <!-- twig from (36,128) -->
+      <path d="M36 128 Q18 118 6 106" stroke="#5a3428" stroke-width="1.4" stroke-linecap="round" opacity=".38"/>
+
+      <!-- SAKURA FLOWERS — 5-petalled, heart-shaped petals -->
+      <!-- flower at main junction (72,178) -->
+      <g transform="translate(72,175)">
+        <g fill="#f5cdd6" opacity=".72">
+          <path transform="rotate(0)"   d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(72)"  d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(144)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(216)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(288)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+        </g>
+        <circle r="4.5" fill="#c8607a" opacity=".80"/>
+        <circle r="2.2" fill="#e898a8" opacity=".90"/>
+      </g>
+      <!-- flower at (36,125) -->
+      <g transform="translate(36,125) rotate(18)">
+        <g fill="#f8d8e2" opacity=".68">
+          <path transform="rotate(0)"   d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(72)"  d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(144)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(216)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(288)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+        </g>
+        <circle r="4" fill="#c06075" opacity=".76"/>
+      </g>
+      <!-- flower at (128,118) -->
+      <g transform="translate(128,116) scale(0.88) rotate(-12)">
+        <g fill="#f5cdd6" opacity=".70">
+          <path transform="rotate(0)"   d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(72)"  d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(144)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(216)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(288)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+        </g>
+        <circle r="4" fill="#c86878" opacity=".78"/>
+      </g>
+      <!-- flower at (180,96) -->
+      <g transform="translate(180,95) scale(0.82) rotate(25)">
+        <g fill="#f0c8d5" opacity=".65">
+          <path transform="rotate(0)"   d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(72)"  d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(144)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(216)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(288)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+        </g>
+        <circle r="3.5" fill="#c06078" opacity=".72"/>
+      </g>
+      <!-- flower at (14,84) — twig end -->
+      <g transform="translate(14,84) scale(0.75) rotate(-8)">
+        <g fill="#f8d8e2" opacity=".62">
+          <path transform="rotate(0)"   d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(72)"  d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(144)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(216)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(288)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+        </g>
+        <circle r="3" fill="#c86878" opacity=".68"/>
+      </g>
+      <!-- flower at (192,42) — upper twig -->
+      <g transform="translate(192,42) scale(0.78) rotate(40)">
+        <g fill="#f5cdd6" opacity=".60">
+          <path transform="rotate(0)"   d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(72)"  d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(144)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(216)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+          <path transform="rotate(288)" d="M0,0 C5,-3 8,-12 3,-17 Q0,-21 -3,-17 C-8,-12 -5,-3 0,0"/>
+        </g>
+        <circle r="3" fill="#c06070" opacity=".65"/>
+      </g>
+
+      <!-- buds (closed, elongated) -->
+      <g transform="translate(102,146)">
+        <path d="M0,0 C-4,-5 -3,-13 0,-16 C3,-13 4,-5 0,0" fill="#f0c8d5" opacity=".62"/>
+        <path d="M0,0 C-2,-3 -2,-8 0,-10 C2,-8 2,-3 0,0" fill="#d08898" opacity=".72"/>
+      </g>
+      <g transform="translate(158,64)">
+        <path d="M0,0 C-3,-4 -3,-11 0,-13 C3,-11 3,-4 0,0" fill="#f5d0d8" opacity=".58"/>
+        <path d="M0,0 C-2,-3 -2,-7 0,-8 C2,-7 2,-3 0,0" fill="#d09090" opacity=".68"/>
+      </g>
+      <g transform="translate(218,80)">
+        <path d="M0,0 C-3,-4 -3,-11 0,-13 C3,-11 3,-4 0,0" fill="#f0c8d5" opacity=".55"/>
+      </g>
+
+      <!-- fallen petals scattered near branch -->
+      <path transform="translate(55,200) rotate(40)"  d="M0,0 C4,-3 6,-10 2,-14 Q0,-17 -2,-14 C-6,-10 -4,-3 0,0" fill="#f5cdd6" opacity=".38"/>
+      <path transform="translate(22,155) rotate(-15)" d="M0,0 C4,-3 6,-10 2,-14 Q0,-17 -2,-14 C-6,-10 -4,-3 0,0" fill="#e8c0cc" opacity=".34"/>
+      <path transform="translate(148,105) rotate(65)" d="M0,0 C4,-3 6,-10 2,-14 Q0,-17 -2,-14 C-6,-10 -4,-3 0,0" fill="#f0c8d5" opacity=".36"/>
     </svg>
 
     <!-- Central medallion (behind text, above pattern) -->
