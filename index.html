@@ -1038,10 +1038,9 @@
     const btn=document.getElementById('ob');
     btn.style.opacity='0'; btn.style.pointerEvents='none';
     document.getElementById('eflap').classList.add('open');
-    /* start music on user gesture */
     const audio=document.getElementById('bg-music');
-    audio.volume=0.28;
-    audio.play().catch(()=>{});
+    audio.volume=0.28; audio.muted=true;
+    audio.play().then(()=>{ audio.muted=false; }).catch(()=>{});
     setTimeout(()=>{
       const f=document.querySelector('.ef-face');
       f.style.transition='opacity .5s ease'; f.style.opacity='0';
@@ -1060,13 +1059,20 @@
     },2100);
   }
 
-  /* music toggle */
+  /* music toggle — first click starts, subsequent clicks pause/resume */
+  let musicStarted=false;
   document.getElementById('music-btn').addEventListener('click',()=>{
     const audio=document.getElementById('bg-music');
     const on=document.getElementById('music-icon-on');
     const off=document.getElementById('music-icon-off');
-    if(audio.paused){ audio.play(); on.style.display=''; off.style.display='none'; }
-    else { audio.pause(); on.style.display='none'; off.style.display=''; }
+    if(!musicStarted||audio.paused){
+      audio.play().catch(()=>{});
+      musicStarted=true;
+      on.style.display=''; off.style.display='none';
+    } else {
+      audio.pause();
+      on.style.display='none'; off.style.display='';
+    }
   });
   /* auto-open after 1.2 s; button also triggers it */
   setTimeout(openEnvelope, 1200);
