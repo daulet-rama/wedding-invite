@@ -471,7 +471,7 @@
   </div>
 
   <!-- ── background music ── -->
-  <audio id="bg-music" loop preload="none">
+  <audio id="bg-music" loop preload="auto" playsinline>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
   <button id="music-btn" aria-label="Музыка">
@@ -1059,21 +1059,26 @@
     },2100);
   }
 
-  /* music toggle — first click starts, subsequent clicks pause/resume */
-  let musicStarted=false;
+  /* unlock audio on first user gesture (Safari requires this) */
+  function tryPlayMusic(){
+    const audio=document.getElementById('bg-music');
+    if(!audio.paused) return;
+    audio.muted=true;
+    audio.play().then(()=>{ audio.muted=false; }).catch(()=>{});
+  }
+  ['touchstart','click','keydown'].forEach(ev=>
+    document.addEventListener(ev, tryPlayMusic, {once:true, passive:true})
+  );
+
+  /* music toggle button */
   document.getElementById('music-btn').addEventListener('click',()=>{
     const audio=document.getElementById('bg-music');
     const on=document.getElementById('music-icon-on');
     const off=document.getElementById('music-icon-off');
-    if(!musicStarted||audio.paused){
-      audio.play().catch(()=>{});
-      musicStarted=true;
-      on.style.display=''; off.style.display='none';
-    } else {
-      audio.pause();
-      on.style.display='none'; off.style.display='';
-    }
+    if(audio.paused){ audio.muted=false; audio.play().catch(()=>{}); on.style.display=''; off.style.display='none'; }
+    else { audio.pause(); on.style.display='none'; off.style.display=''; }
   });
+
   /* auto-open after 1.2 s; button also triggers it */
   setTimeout(openEnvelope, 1200);
   document.getElementById('ob').addEventListener('click', openEnvelope);
