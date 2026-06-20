@@ -22,7 +22,7 @@
   --env:min(300px,88vw);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;font-size:112%}
 body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dark);overflow-x:hidden}
 
 /* ─── lang bar ────────────────────────────── */
@@ -240,8 +240,10 @@ body{background:var(--cream);font-family:'Montserrat',sans-serif;color:var(--dar
   font-family:var(--sfont);font-style:var(--sstyle);font-weight:400;
   font-size:var(--sfsize);color:var(--w);line-height:1.1;margin-bottom:6px;letter-spacing:.02em;
 }
+:lang(kk) .sec-script{margin-bottom:22px}
 .sec-lbl{font-size:clamp(.58rem,2.2vw,.7rem);letter-spacing:.26em;text-transform:uppercase;
   color:var(--w80);margin-bottom:36px;font-weight:500}
+#lbl-date{display:none}
 
 .cal-wrap{
   display:inline-block;border:1px solid var(--goldD);
